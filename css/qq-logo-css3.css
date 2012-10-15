@@ -1,0 +1,60 @@
+body{
+	margin: 0;
+	padding:0;
+}
+#mask {
+	position: absolute;
+	opacity: 0.2;
+	top:0;
+	left:0;
+}
+
+
+/**
+ * LOGO
+ */
+
+#qq {
+	margin: 18px 0 0 96px;
+}
+
+.head{
+	position: relative;
+	width: 234px;
+	height: 185px;
+	border: 1px solid #000;
+	border-top-left-radius: 117px 117px;
+	border-top-right-radius: 117px 117px;
+	border-bottom-left-radius: 117px 68px;
+	border-bottom-right-radius: 117px 68px;
+}
+
+.eye{
+	width: 44px;
+	height: 66px;
+	border:1px solid #000;
+	border-radius: 50% 50%;
+	position: absolute;	
+}
+
+.left.eye{
+	left:62px;
+	top:50px;	
+}
+
+.right.eye{
+	left:123px;
+	top:50px;
+}
+
+.mouth{
+	width: 158px;
+	height: 34px;
+	position: absolute;
+	z-index: 1;
+	border:1px solid #FFA600;
+	top: 120px;
+	left: 39px;
+	border-top-left-radius: 45% 34px;
+	border-top-right-radius: 45% 34px;
+}

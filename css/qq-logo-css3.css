@@ -47,14 +47,59 @@ body{
 	top:50px;
 }
 
-.mouth{
+.mouthTopContainer {
+	position: absolute;
+	width: 158px;
+	height: 29px;
+	z-index: 1;
+	top: 120px;
+	left: 39px;
+	overflow: hidden;
+}
+.mouthTop{
 	width: 158px;
 	height: 34px;
 	position: absolute;
 	z-index: 1;
 	border:1px solid #FFA600;
-	top: 120px;
-	left: 39px;
+	top: 0;
+	left: 0;
 	border-top-left-radius: 45% 34px;
 	border-top-right-radius: 45% 34px;
+	/*background-color: #FFA600; */
+}
+
+.mouthBottomContainer {
+	position: absolute;
+	width: 158px;
+	height: 15px;
+	z-index: 1;
+	top: 146px;
+	left: 39px;
+	overflow: hidden;
+}
+.mouthBottom{
+	width: 158px;
+	height: 24px;
+	position: absolute;
+	z-index: 1;
+	border:1px solid #FFA600;
+	border-top:none;
+	top: -5px;
+	left: 0;
+	border-bottom-left-radius: 45% 24px;
+	border-bottom-right-radius: 45% 24px;
+	/*background-color: #FFA600; */
+}
+
+.lips{
+	border: 1px solid #FFA600;
+	width: 116px;
+	height: 24px;
+	position: absolute;
+	top: 146px;
+	left: 60px;
+	border-top: none;
+	border-bottom-left-radius: 50% 100%;
+	border-bottom-right-radius: 50% 100%;
 }

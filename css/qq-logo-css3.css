@@ -15,11 +15,13 @@ body{
  */
 
 #qq {
-	margin: 18px 0 0 96px;
+	margin: 0;
 }
 
 .head{
-	position: relative;
+	position: absolute;
+	top:18px;
+	left: 96px;
 	width: 234px;
 	height: 185px;
 	border: 1px solid #000;
@@ -27,6 +29,7 @@ body{
 	border-top-right-radius: 117px 117px;
 	border-bottom-left-radius: 117px 68px;
 	border-bottom-right-radius: 117px 68px;
+	z-index:2;
 }
 
 .eye{
@@ -102,4 +105,35 @@ body{
 	border-top: none;
 	border-bottom-left-radius: 50% 100%;
 	border-bottom-right-radius: 50% 100%;
+}
+
+.body{
+	width: 326px;
+	height: 300px;
+	/*border: 1px solid black;*/
+	top: 135px;
+	left: 48px;
+	position: absolute;
+}
+
+.inner {
+	border: 1px solid #5C874A;
+	width: 218px;
+	position: absolute;
+	height: 210px;
+	border-radius: 50%;
+	left: 55px;
+	top: 5px;
+	z-index:1;
+}
+
+.outter{
+	border: 1px solid #F92672;
+	width: 260px;
+	left: 33px;
+	height: 250px;
+	border-radius: 125px;
+	position: absolute;
+	top: -30px;
+
 }

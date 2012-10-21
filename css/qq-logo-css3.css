@@ -191,6 +191,12 @@ body{
 	border-right: 8px solid black;
 	-webkit-transform-origin: top right;
 	-webkit-transform: rotate(-60deg);
+	-moz-transform-origin: top right;
+	-moz-transform: rotate(-60deg);
+	-o-transform-origin: top right;
+	-o-transform: rotate(-60deg);
+	transform-origin: top right;
+	transform: rotate(-60deg);
 	left: -12px;
 	top: 4px;
 }
@@ -198,6 +204,9 @@ body{
 .lipShadow.right{
 	left:114px;
 	-webkit-transform: rotate(60deg) rotateY(180deg);
+	-moz-transform: rotate(60deg) rotateY(180deg);
+	-o-transform: rotate(60deg) rotateY(180deg);
+	transform: rotate(60deg) rotateY(180deg);
 }
 
 .body{
@@ -235,6 +244,9 @@ body{
 	border-top-left-radius: 90px 120px;
 	border-top-right-radius: 30px 30px;
 	-webkit-transform: rotate(-79deg);
+	-moz-transform: rotate(-79deg);
+	-o-transform: rotate(-79deg);
+	transform: rotate(-79deg);
 }
 
 .scarfShadowRight {
@@ -271,8 +283,15 @@ body{
 	left: 12px;
 	border-top-left-radius: 30px 30px;
 	-webkit-transform-origin: top right;
+	-moz-transform-origin: top right;
+	-o-transform-origin: top right;
+	transform-origin: top right;
 	z-index: 10;
 	-webkit-transform: skewX(4deg) scaleY(1.5) rotate(-60deg);
+	-moz-transform: skewX(4deg) scaleY(1.5) rotate(-60deg);
+	-o-transform: skewX(4deg) scaleY(1.5) rotate(-60deg);
+	transform: skewX(4deg) scaleY(1.5) rotate(-60deg);
+
 }
 
 .innerWrapper{
@@ -332,6 +351,12 @@ body{
 	left: 50px;
 	-webkit-transform-origin: bottom left;
 	-webkit-transform: rotate(-70deg);
+	-moz-transform-origin: bottom left;
+	-moz-transform: rotate(-70deg);
+	-o-transform-origin: bottom left;
+	-o-transform: rotate(-70deg);
+	transform-origin: bottom left;
+	transform: rotate(-70deg);
 	overflow: hidden;
 }
 
@@ -354,6 +379,12 @@ body{
 	left: 50px;
 	-webkit-transform-origin: top left;
 	-webkit-transform: rotate(-70deg);
+	-moz-transform-origin: top left;
+	-moz-transform: rotate(-70deg);
+	-o-transform-origin: top left;
+	-o-transform: rotate(-70deg);
+	transform-origin: top left;
+	transform: rotate(-70deg);
 	overflow: hidden;
 }
 
@@ -379,6 +410,12 @@ body{
 	left: 240px;
 	-webkit-transform-origin: bottom right;
 	-webkit-transform: rotate(65deg);
+	-moz-transform-origin: bottom right;
+	-moz-transform: rotate(65deg);
+	-o-transform-origin: bottom right;
+	-o-transform: rotate(65deg);
+	transform-origin: bottom right;
+	transform: rotate(65deg);
 	overflow: hidden;
 }
 
@@ -392,6 +429,9 @@ body{
 	background: black;
 	left: -30px;
 	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	-o-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
 }
 
 .rightHandBottomContainer{
@@ -403,6 +443,12 @@ body{
 	left: 248px;
 	-webkit-transform-origin: top right;
 	-webkit-transform: rotate(90deg);
+	-moz-transform-origin: top right;
+	-moz-transform: rotate(90deg);
+	-o-transform-origin: top right;
+	-o-transform: rotate(90deg);
+	transform-origin: top right;
+	transform: rotate(90deg);
 	overflow: hidden;
 }
 
@@ -456,12 +502,21 @@ body{
 	border-top-right-radius: 30px 30px;
 	border-top-left-radius: 10px 10px;
 	-webkit-transform-origin: top left;
+	-moz-transform-origin: top left;
+	-o-transform-origin: top left;
+	transform-origin: top left;
 	z-index: 10;
 	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .toe.right{
 	-webkit-transform: rotate(45deg) rotateY(180deg);
+	-moz-transform: rotate(45deg) rotateY(180deg);
+	-o-transform: rotate(45deg) rotateY(180deg);
+	transform: rotate(45deg) rotateY(180deg);
 	left: 264px;
 }
 
@@ -543,6 +598,12 @@ body{
 	border-radius: 50%;
 	-webkit-transform-origin: bottom right;
 	-webkit-transform: rotate(34deg);
+	-moz-transform-origin: bottom right;
+	-moz-transform: rotate(34deg);
+	-o-transform-origin: bottom right;
+	-o-transform: rotate(34deg);
+	transform-origin: bottom right;
+	transform: rotate(34deg);
 	top: 35px;
 	left: 210px;
 	z-index: 1;

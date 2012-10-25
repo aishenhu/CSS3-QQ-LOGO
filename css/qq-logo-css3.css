@@ -1,6 +1,7 @@
 body{
 	margin: 0;
 	padding:0;
+	font: 12px Tahoma, arial, sans-serif;
 }
 #mask {
 	position: absolute;
@@ -9,13 +10,36 @@ body{
 	left:0;
 }
 
+header{
+	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
+	color: #666;
+	font-size: 50px;
+	text-align: center;
+	margin-top:50px;
+}
 
+.team {
+	font-size: 0.6em;
+}
+
+.team a{
+	color:#5FB7E9;
+	text-decoration: none;
+}
+
+.team a:hover{
+	color:#4B9BC9;
+}
 /**
  * LOGO
  */
 
 #qq {
-	margin: 0;
+	width: 420px;
+	height: 400px;
+	margin: 0 auto;
+	margin-top: 30px;
+	position: relative;
 }
 
 .head{
@@ -607,4 +631,23 @@ body{
 	top: 35px;
 	left: 210px;
 	z-index: 1;
+}
+
+.copyright{
+	margin: 50px 0 0 0;
+	height: 50px;
+	color: #999;
+	font-family: Tahoma;
+	font-size: 12px;
+	text-align: center;
+}
+
+.copyright a {
+	color: #999;
+	text-decoration: none;
+}
+
+.copyright a:hover, .copyright a:focus {
+	outline: none;
+	text-decoration: underline;
 }

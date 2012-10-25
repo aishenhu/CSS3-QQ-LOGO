@@ -13,9 +13,11 @@ body{
 header{
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
 	color: #666;
+	width: 100%;
 	font-size: 50px;
 	text-align: center;
-	margin-top:50px;
+	top:50px;
+	position: absolute;
 }
 
 .team {
@@ -38,7 +40,7 @@ header{
 	width: 420px;
 	height: 400px;
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 230px;
 	position: relative;
 	display:block;
 }
@@ -55,7 +57,7 @@ header{
 	border-bottom-left-radius: 117px 68px;
 	border-bottom-right-radius: 117px 68px;
 	z-index:10;
-	background: #000;
+	background-color: #000;
 }
 
 .eye{

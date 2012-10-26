@@ -1,12 +1,251 @@
+/**
+ * show the period of drawing qq logo
+ *
+ * the animation module will be added a class 'period'
+ */
+
+/**
+ * stage init
+ */
 body.period {
-	background: url(../assets/bg_wrap.png) transparent repeat;
+	background: url(../assets/bg_wrap.png);
+	overflow: hidden;
 }
 
-header{
+header, .copyright{
 	-webkit-transition: 0.8s all ease-in-out;
 }
 
-header.period{
+.copyright.period {
+	top: 130px;
 	width: 500px;
-	top:0px;
+}
+header.period {
+	top:10px;
+	width: 500px;
+	color:#FD971F;
+}
+
+/**
+ * module period definition
+ */
+.head, .handWrapper, .body, .footWrapper,.mouthTop, .mouthBottom, .lips, .lipShadow,
+.scarfShadow, .scarfShadowRight, .scarfEndShadow,
+.toe, .inner, .outter, .scarfEnd {
+	-webkit-transition: 1s all ease;
+}
+
+.head.period {	
+	-webkit-transition: 0.6s all ease;
+	position: absolute;
+	top:-800px;
+	border: 1px solid #000;
+	border-radius: 0;
+	background-color: transparent;
+}
+
+
+.body.period {
+	-webkit-transition: 0.6s all ease;
+	top: 235px;
+	left: 1200px;
+}
+
+.handWrapper.period {
+	-webkit-transition: 0.6s all ease;
+	left: -1500px;
+}
+
+.footWrapper.period {
+	-webkit-transition: 0.6s all ease;
+	top: 1000px;
+}
+
+
+.mouthTop.period, .mouthBottom.period, .lips.period, .lipShadow.period,
+.scarfShadow.period, .scarfShadowRight.period, .scarfEndShadow.period,
+.toe.period, .inner.period, .outter.period, .scarfEnd.period{
+	-webkit-transition: 0.6s all ease;
+	background: transparent;
+	border-radius: 0;
+	opacity: 0;
+}
+
+.scarf.period {
+	border-radius: 0;
+	background: transparent;
+}
+
+.lipShadow.period{
+	-webkit-transform:rotate(0deg);
+	border-top-color:#FC9D2D;
+	border-bottom-color:#FC9D2D;
+}
+
+.scarfShadow.period, .scarfShadowRight.period, .scarfEndShadow{
+	-webkit-transform: rotate(0deg);
+}
+
+.eye.period{
+	border:1px solid #000;
+	border-radius: 0;
+	position: absolute;	
+	background: transparent;
+	opacity: 0;
+}
+
+/**
+ * head animation
+ */
+
+.head.animation1{
+	-webkit-animation-name: headAni1;
+	-webkit-animation-duration: 2s;
+	top:18px;
+	border-top-left-radius: 117px 117px;
+	border-top-right-radius: 117px 117px;
+	border-bottom-left-radius: 117px 68px;
+	border-bottom-right-radius: 117px 68px;
+}
+
+.head.animation2{
+	-webkit-animation-name: headAni2;
+	-webkit-animation-duration: 1s;
+	background: #000;
+}
+
+@-webkit-keyframes headAni1{
+	from {
+		top:-800px;
+		border: 1px solid #000;
+		border-radius: 0;
+	}
+
+	50% {
+		top:18px;
+		border-radius: 0;
+	}
+
+	100% {
+		border-top-left-radius: 117px 117px;
+		border-top-right-radius: 117px 117px;
+		border-bottom-left-radius: 117px 68px;
+		border-bottom-right-radius: 117px 68px;
+	}
+}
+
+@-webkit-keyframes headAni2 {
+	from {
+		background: transparent;
+	}
+
+	to{
+		background: #000;
+	}
+}
+
+/**
+ * eye animation
+ */
+
+.eye.left.animation1, .eye.right.animation1 {
+	-webkit-animation-name: eyeAni1;
+	-webkit-animation-duration: 1s;
+	opacity: 1;
+}
+
+@-webkit-keyframes eyeAni1{
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.eye.left.animation2, .eye.right.animation2 {
+	-webkit-animation-name: eyeAni2;
+	-webkit-animation-duration: 1.5s;
+	background: #fff;
+}
+
+@-webkit-keyframes eyeAni2{
+	from {
+		background: transparent;
+	}
+
+	to {
+		background: #fff;
+	}
+}
+
+.eye.left.animation3, .eye.right.animation3 {
+	-webkit-animation-name: eyeAni3;
+	-webkit-animation-duration: 1s;
+	border-radius: 50% 50%;
+}
+
+@-webkit-keyframes eyeAni3{
+	from {
+		border-radius: 0;
+	}
+
+	to {
+		border-radius: 50% 50%;
+	}
+}
+
+/**
+ * mouth animation
+ */
+
+.mouthTop.animation1{
+	-webkit-animation-name: mouthAni1;
+	-webkit-animation-duration: 1s;
+	opacity: 1;
+}
+
+@-webkit-keyframes mouthAni1 {
+	from{
+		opacity: 0;
+	}
+
+	to{
+		opacity: 1;
+	}
+}
+
+.mouthTop.animation2{
+	-webkit-animation-name: mouthAni2;
+	-webkit-animation-duration: 1s;
+	background: #FFA600;
+}
+
+@-webkit-keyframes mouthAni2 {
+	from{
+		background: transparent;
+	}
+
+	to{
+		background: #FFA600;
+	}
+}
+
+.mouthTop.animation3{
+	-webkit-animation-name: mouthAni3;
+	-webkit-animation-duration: 1s;
+	border-top-left-radius: 45% 34px;
+	border-top-right-radius: 45% 34px;
+}
+
+@-webkit-keyframes mouthAni3 {
+	from{
+		border-radius: 0;
+	}
+
+	to{
+		border-top-left-radius: 45% 34px;
+		border-top-right-radius: 45% 34px;
+	}
 }

@@ -5,9 +5,9 @@
  * Code licensed under the BSD License:
  * http://www.AlloyTeam.com/license.txt
  * 
- * @version 2.0
+ * @version 1.0
  * @author  AishenHu(<a href="mailto:hit.huzhichao@gmail.com">hit.huzhichao@gmail.com</a>)
- * @description QQ Logo Period Animation
+ * @description: QQ Logo Period Animation
  * -------------------------------------------------------------- 2012.10.25 ----------------------------
  */
 

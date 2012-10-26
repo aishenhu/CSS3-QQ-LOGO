@@ -1,0 +1,12 @@
+body.period {
+	background: url(../assets/bg_wrap.png) transparent repeat;
+}
+
+header{
+	-webkit-transition: 0.8s all ease-in-out;
+}
+
+header.period{
+	width: 500px;
+	top:0px;
+}

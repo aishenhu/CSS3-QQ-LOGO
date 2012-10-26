@@ -23,11 +23,19 @@ Jx().$package("qqlogo.util", function(J){
         animations : [],
         add : function(element, aniName, delay){
             delay = delay || 0;
+            var _this = this;
             this.animations.push({
                 element: element,
                 aniName: aniName,
-                delay : delay
-            })
+                delay : delay,
+            });
+            element.seqid = this.animations.length;
+            $E.on(element.el, 'webkitAnimationEnd', function(){
+                console.log(_this.cur, element.seqid);
+                if(_this.cur == element.el.seqid){
+                    _this.next();
+                }
+            });
             return this;
         },
 
@@ -54,9 +62,13 @@ Jx().$package("qqlogo.util", function(J){
         //     console.log(_this.cur, _this.animations.length);
         // }
         start: function(){
-            var _this = this;
-            if(_this.cur < _this.animations.length){
-                var ani = _this.animations[_this.cur];
+            this.next();
+        },
+
+        next: function(){  
+            console.log(this.cur);   
+            if(this.cur < this.animations.length){        
+                var ani = this.animations[this.cur];
                 if(ani.delay == 0){
                     ani.element.start(ani.aniName);
                 }else{
@@ -64,18 +76,8 @@ Jx().$package("qqlogo.util", function(J){
                         ani.element.start(ani.aniName);
                     }, ani.delay);
                 } 
-                if(_this.cur < _this.animations.length - 1){
-                    $E.off(ani.element.el, 'webkitAnimationEnd');
-                    $E.on(ani.element.el, 'webkitAnimationEnd', function(event){
-                        _this.cur ++;
-                        console.log(event);
-                        qqlogo.util.animationChain.start();
-                    });                    
-                }
-        
+                this.cur ++;
             }
-
-            console.log(_this.cur, _this.animations.length);
         }
 
     }

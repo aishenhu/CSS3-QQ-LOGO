@@ -21,54 +21,47 @@ Jx().$package("qqlogo.util", function(J){
     var animationChain = {
         cur: 0,
         animations : [],
+        init: function(){
+            $E.on($D.id('qq'), 'webkitAnimationEnd', function(){
+                console.log('qq ', animationChain.cur);
+                animationChain.cur ++;
+                animationChain.next();                
+            });
+        },
         add : function(element, aniName, delay){
             delay = delay || 0;
             var _this = this;
-            this.animations.push({
+            var ani = {
                 element: element,
                 aniName: aniName,
                 delay : delay,
-            });
-            element.seqid = this.animations.length;
-            $E.on(element.el, 'webkitAnimationEnd', function(){
-                console.log(_this.cur, element.seqid);
-                if(_this.cur == element.el.seqid){
-                    _this.next();
-                }
-            });
-            return this;
+                id: this.animations.length
+            }
+            this.animations.push(ani);
+            var handler = function(event){
+                console.log('catch event:', arguments.callee.id);
+                //event.stopPropagation();
+
+                 if(arguments.callee.id  == _this.cur){
+                     _this.next(arguments.callee.id + 1);
+                 }
+            }
+            handler.id = ani.id;
+            //$E.on(element.el, 'webkitAnimationEnd', handler);
+            console.log(element.el);
+            console.log('this',animationChain);
+            return animationChain;
         },
 
-        // start: function(){
-        //     var _this = this;
-        //     if(_this.cur < _this.animations.length){
-        //         var ani = _this.animations[_this.cur];
-        //         if(ani.delay == 0){
-        //             ani.element.start(ani.aniName);
-        //             $E.on(ani.element.el, 'webkitAnimationEnd', function(){
-        //                 _this.cur ++;
-        //                 qqlogo.util.animationChain.start();
-        //             });
-        //         }else{
-        //             setTimeout(function(){
-        //                 ani.element.start(ani.aniName);
-        //                 $E.on(ani.element.el, 'webkitAnimationEnd', function(){
-        //                     _this.cur ++;
-        //                     qqlogo.util.animationChain.start();
-        //                 });
-        //             }, ani.delay);
-        //         }          
-        //     }
-        //     console.log(_this.cur, _this.animations.length);
-        // }
         start: function(){
-            this.next();
+            console.log(this.animations);
+            this.next(this.cur);
         },
 
-        next: function(){  
-            console.log(this.cur);   
-            if(this.cur < this.animations.length){        
-                var ani = this.animations[this.cur];
+        next: function(id){   
+            var cur = this.cur;
+            if(cur < this.animations.length){        
+                var ani = this.animations[cur];
                 if(ani.delay == 0){
                     ani.element.start(ani.aniName);
                 }else{
@@ -76,12 +69,10 @@ Jx().$package("qqlogo.util", function(J){
                         ani.element.start(ani.aniName);
                     }, ani.delay);
                 } 
-                this.cur ++;
             }
         }
-
     }
-
+    animationChain.init();
     this.isArray = isArray;
     this.animationChain = animationChain;
 });
@@ -289,17 +280,19 @@ Jx().$package("qqlogo.period",function(J) {
 
     var _startPeriodAnimation = function(){ 
         $U.animationChain.add(head, 'animation1')
-                         .add(leftEye, 'animation1')
+                         .add(head, 'animation2')
+                         .add(leftEye, 'animation1')  
+                         .add(leftEye, 'animation2')
+                         .add(leftEye, 'animation3')  
                          .add(rightEye, 'animation1')
-                         .add(leftEye, 'animation3')
-                         .add(rightEye, 'animation3')
-                         .add(head, 'animation2', 200)
                          .add(rightEye, 'animation2')
-                         .add(leftEye, 'animation2', 1000)
+                         .add(rightEye, 'animation3')
                          .add(mouthTop, 'animation1')
                          .add(mouthTop, 'animation2')
-                         .add(mouthTop, 'animation3');
-        $U.animationChain.start();
+                         .add(mouthTop, 'animation3')
+
+
+        ;$U.animationChain.start();
     }
 
     var _endPeriodAnimation = function(){
@@ -332,9 +325,6 @@ Jx().$package("qqlogo.period",function(J) {
     var init = function(){
     	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
     	var count = 0;
-    	$E.on($D.id('head'), 'webkitTransitionEnd', function(){
-
-    	});
     }
 
     $E.onDomReady(init);

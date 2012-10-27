@@ -127,7 +127,16 @@ Jx().$package("qqlogo.period",function(J) {
         scarfShadowRight,
         scarfEndShadow,
         leftToe,
-        rightToe;
+        rightToe,
+        leftFootTop,
+        leftFootBottom,
+        rightFootTop,
+        rightFootBottom,
+
+        mLeftHandTopContainer,
+        mLeftHandBottomContainer,
+        mRightHandTopContainer,
+        mRightHandBottomContainer;
 
     /**
      * module container
@@ -254,6 +263,15 @@ Jx().$package("qqlogo.period",function(J) {
         rightHandBottom = new module($('.rightHandBottom')[0]);
         leftToe = new module($('.left.toe')[0]);
         rightToe = new module($('.right.toe')[0]);
+        leftFootTop = new module($('.leftFootTop')[0]);
+        leftFootBottom = new module($('.leftFootBottom')[0]);
+        rightFootTop = new module($('.rightFootTop')[0]);
+        rightFootBottom = new module($('.rightFootBottom')[0]);
+
+        mLeftHandTopContainer = new module(leftHandTopContainer);
+        mLeftHandBottomContainer = new module(leftHandBottomContainer);
+        mRightHandTopContainer = new module(rightHandTopContainer);
+        mRightHandBottomContainer = new module(rightHandBottomContainer);
 
         Modules.addModule(head)
             .addModule(body)
@@ -278,7 +296,16 @@ Jx().$package("qqlogo.period",function(J) {
             .addModule(rightHandTop)
             .addModule(rightHandBottom)
             .addModule(leftToe)
-            .addModule(rightToe);
+            .addModule(rightToe)
+            .addModule(leftFootTop)
+            .addModule(leftFootBottom)
+            .addModule(rightFootTop)
+            .addModule(rightFootBottom);
+
+        Modules.addModule(mLeftHandBottomContainer)
+               .addModule(mLeftHandTopContainer)
+               .addModule(mRightHandTopContainer)
+               .addModule(mRightHandBottomContainer);
     }
 
     var endPeriodStage = function(){
@@ -293,32 +320,137 @@ Jx().$package("qqlogo.period",function(J) {
 
     var _startPeriodAnimation = function(){ 
         PeriodInfo.changeText('Let\'s Go');
-        $U.animationChain
-                          .add(head, 'animation1')
-                         .add(head, 'animation2',0,function(){PeriodInfo.changeText('Eye')})
+        /**
+         * Head part animation
+         */
+        $U.animationChain.add(head, 'animation1')
+                         .add(head, 'animation2',0,function(){PeriodInfo.changeText('Eye Begin')})
                          .add(leftEye, 'animation1')  
                          .add(leftEye, 'animation2')
                          .add(leftEye, 'animation3')  
                          .add(rightEye, 'animation1')
                          .add(rightEye, 'animation2')
-                         .add(rightEye, 'animation3')
+                         .add(rightEye, 'animation3',0, function(){PeriodInfo.changeText('Mouth Begin')})
                          .add(mouthTop, 'animation1')
                          .add(mouthTop, 'animation2')
-                         .add(mouthTop, 'animation3', 500, function(){mouthTopContainer.style.overflow = "hidden";PeriodInfo.changeText('MouthTop Done!')})
+                         .add(mouthTop, 'animation3', 500)
                          .add(mouthBottom, 'animation1')
                          .add(mouthBottom, 'animation2')
                          .add(mouthBottom, 'animation3',500, function(){
                             mouthBottomContainer.style.overflow = 'hidden';
+                            mouthTopContainer.style.overflow = 'hidden';
+                            PeriodInfo.changeText('Lips Begin');
                          })
                          .add(lips, 'animation1')
                          .add(lips, 'animation2')
-                         .add(lips, 'animation3')
+                         .add(lips, 'animation3', 300, function(){
+                            PeriodInfo.changeText('Lips fix');
+                         })
                          .add(lipShadowLeft, 'animation1')
-                         .add(lipShadowLeft, 'animation2')
+                         .add(lipShadowLeft, 'animation2', 100)
                          .add(lipShadowLeft, 'animation3')
                          .add(lipShadowRight, 'animation1', 100, function(){
-                            PeriodInfo.changeText('Head Over.');
+                            PeriodInfo.changeText('Head Complete! Go Body');
+                         });
+
+        /**
+         * body part animation
+         */
+        $U.animationChain.add(body, 'animation1')
+                         .add(scarf, 'animation1', 0, function(){
+                            PeriodInfo.changeText('building...');
                          })
+                         .add(outter, 'animation1')
+                         .add(inner, 'animation1')
+                         .add(scarfEnd, 'animation1')
+                         .add(scarfEnd, 'animation2')
+                         .add(scarf, 'animation2')
+                         .add(outter, 'animation2')
+                         .add(inner, 'animation2')
+                         .add(scarfEnd, 'animation3')
+                         .add(body, 'animation2',0,function(){
+                            PeriodInfo.changeText('Body Complete! Go Hand');
+                         });
+
+
+        /**
+         * hand part animation
+         */
+        $U.animationChain.add(hand, 'animation1',0, function(){PeriodInfo.changeText('Hand')})
+                        .add(leftHandTop, 'animation1')
+                        .add(leftHandBottom, 'animation1',100, function(){
+                            setTimeout(function(){
+                                leftHandTopContainer.style.overflow = "hidden";
+                                leftHandBottomContainer.style.overflow = "hidden";
+                            //     rightHandTopContainer.style.overflow = "hidden";
+                            //     rightHandBottomContainer.style.overflow = "hidden";
+                            },1000);
+                        })
+                        .add(mLeftHandTopContainer, 'animation1')
+                        .add(mLeftHandBottomContainer, 'animation1')
+                        .add(leftHandTop,'animation2')
+                        .add(leftHandBottom, 'animation2')
+                        .add(rightHandTop, 'animation1')
+                        .add(rightHandBottom, 'animation1', 100, function(){
+                            setTimeout(function(){
+                                // leftHandTopContainer.style.overflow = "hidden";
+                                // leftHandBottomContainer.style.overflow = "hidden";
+                                rightHandTopContainer.style.overflow = "hidden";
+                                rightHandBottomContainer.style.overflow = "hidden";
+                            },1000);
+                        })
+                        .add(mRightHandTopContainer, 'animation1')
+                        .add(mRightHandBottomContainer, 'animation1')
+                        .add(rightHandTop,'animation2')
+                        .add(rightHandBottom, 'animation2')
+                        .add(hand, 'animation2',0,function(){
+                            PeriodInfo.changeText('Hand Complete! Go Foot')
+                        });
+
+        /**
+         * foot part animation
+         */
+        $U.animationChain.add(foot, 'animation1', 500, function(){
+                                PeriodInfo.changeText('Four Sub Modules of foot');
+                            })
+                         .add(leftFootTop, 'animation1')
+                         .add(leftFootBottom, 'animation1')
+                         .add(rightFootBottom, 'animation1')
+                         .add(rightFootTop, 'animation1',200, function(){
+                            PeriodInfo.changeText('Combine');
+                         })
+                         .add(leftFootTop, 'animation2')
+                         .add(leftFootBottom, 'animation2')
+                         .add(rightFootTop, 'animation2',0, function(){
+                            PeriodInfo.changeText('Will Cut by Container')
+                         })
+                         .add(rightFootBottom, 'animation2',0, function(){
+                            leftFootTopWrapper.style.overflow = "hidden";
+                            leftFootBottomWrapper.style.overflow = "hidden";
+                            rightFootTopWrapper.style.overflow = "hidden";
+                            rightFootBottomWrapper.style.overflow = "hidden";
+                         })
+                         .add(foot, 'animation2', 500, function(){
+                            PeriodInfo.changeText('Foot Done. Go Shadow Fix')
+                            //PeriodInfo.changeText('Mission Complete!')
+                         });
+
+        /**
+         * shadow fix animation
+         */
+        $U.animationChain.add(scarfShadow, 'animation1', 200, function(){
+                                PeriodInfo.changeText('Shadow Fix');
+                            })
+                         .add(scarfShadowRight, 'animation1')
+                         .add(scarfEndShadow, 'animation1')
+                         .add(leftToe,'animation1')
+                         .add(rightToe, 'animation1', 0,function(){
+                            PeriodInfo.changeText('Mission Complete!');
+                            setTimeout(function(){
+                                PeriodInfo.hide();
+                            }, 500);
+                         });
+
         ;$U.animationChain.start();
     }
 

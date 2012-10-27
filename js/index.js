@@ -24,32 +24,25 @@ Jx().$package("qqlogo.util", function(J){
         init: function(){
             $E.on($D.id('qq'), 'webkitAnimationEnd', function(){
                 console.log('qq ', animationChain.cur);
+                var ani = animationChain.animations[animationChain.cur];
+                if(ani.callback){
+                    ani.callback();
+                }
                 animationChain.cur ++;
                 animationChain.next();                
             });
         },
-        add : function(element, aniName, delay){
+        add : function(element, aniName, delay, callback){
             delay = delay || 0;
             var _this = this;
             var ani = {
                 element: element,
                 aniName: aniName,
                 delay : delay,
-                id: this.animations.length
+                id: this.animations.length,
+                callback: callback
             }
             this.animations.push(ani);
-            var handler = function(event){
-                console.log('catch event:', arguments.callee.id);
-                //event.stopPropagation();
-
-                 if(arguments.callee.id  == _this.cur){
-                     _this.next(arguments.callee.id + 1);
-                 }
-            }
-            handler.id = ani.id;
-            //$E.on(element.el, 'webkitAnimationEnd', handler);
-            console.log(element.el);
-            console.log('this',animationChain);
             return animationChain;
         },
 
@@ -289,9 +282,7 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(rightEye, 'animation3')
                          .add(mouthTop, 'animation1')
                          .add(mouthTop, 'animation2')
-                         .add(mouthTop, 'animation3')
-
-
+                         .add(mouthTop, 'animation3', 3000, function(){console.log('done')});
         ;$U.animationChain.start();
     }
 

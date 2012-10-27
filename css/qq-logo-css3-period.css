@@ -82,7 +82,7 @@ header.period {
 	border-bottom-color:#FC9D2D;
 }
 
-.scarfShadow.period, .scarfShadowRight.period, .scarfEndShadow{
+.scarfShadow.period, .scarfShadowRight.period, .scarfEndShadow.period{
 	-webkit-transform: rotate(0deg);
 }
 

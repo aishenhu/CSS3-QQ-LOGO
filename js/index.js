@@ -102,6 +102,16 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    var Hello = {
+        init: function(){
+            this.el = $('.hello')[0];
+        },
+
+        show: function(){
+            $D.addClass(this.el, 'period');
+        }
+    }
+
     /**
      * module
      */
@@ -446,6 +456,7 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(leftToe,'animation1')
                          .add(rightToe, 'animation1', 0,function(){
                             PeriodInfo.changeText('Mission Complete!');
+                            Hello.show();
                             setTimeout(function(){
                                 PeriodInfo.hide();
                             }, 500);
@@ -486,6 +497,7 @@ Jx().$package("qqlogo.period",function(J) {
     var init = function(){
     	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
         PeriodInfo.init();
+        Hello.init();
     	var count = 0;
     }
 

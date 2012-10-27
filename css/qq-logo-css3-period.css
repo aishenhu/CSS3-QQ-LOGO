@@ -28,7 +28,7 @@ header.period {
 	color:#FD971F;
 }
 
-.periodInfo {
+.periodInfo, .hello {
 	-webkit-transition: 1s all ease-in-out;
 	position: absolute;
 	top: -100px;
@@ -39,6 +39,15 @@ header.period {
 	line-height: 60px;
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
 	color: #36B331;
+}
+
+.hello{
+	color: #FD971F;
+	top:1120px;
+}
+
+.hello.period{
+	top:620px;
 }
 
 .periodInfo.period{

@@ -48,6 +48,9 @@ Jx().$package("qqlogo.util", function(J){
 
         start: function(){
             console.log(this.animations);
+            $A.forEach(this.animations, function(item){
+                item.element.el.style.webkitTransition = 'none';
+            });
             this.next(this.cur);
         },
 
@@ -383,9 +386,9 @@ Jx().$package("qqlogo.period",function(J) {
                          });
 
 
-        /**
-         * hand part animation
-         */
+        // /**
+        //  * hand part animation
+        //  */
         $U.animationChain.add(hand, 'animation1',0, function(){PeriodInfo.changeText('Hand')})
                         .add(leftHandTop, 'animation1')
                         .add(leftHandBottom, 'animation1',100, function(){

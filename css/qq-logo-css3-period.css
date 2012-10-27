@@ -43,11 +43,13 @@ header.period {
 
 .hello{
 	color: #FD971F;
+	opacity: 0;
 	top:1120px;
 }
 
 .hello.period{
 	top:620px;
+	opacity: 1;
 }
 
 .periodInfo.period{

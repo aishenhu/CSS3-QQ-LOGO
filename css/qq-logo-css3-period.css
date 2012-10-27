@@ -26,6 +26,23 @@ header.period {
 	color:#FD971F;
 }
 
+.periodInfo {
+	-webkit-transition: 1s all ease-in-out;
+	position: absolute;
+	top: -100px;
+	width: 100%;
+	text-align: center;
+	height: 60px;
+	font-size: 40px;
+	line-height: 60px;
+	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
+	color: #36B331;
+}
+
+.periodInfo.period{
+	top: 100px;
+}
+
 /**
  * module period definition
  */
@@ -200,7 +217,7 @@ header.period {
  * mouth animation
  */
 
-.mouthTop.animation1{
+.mouthTop.animation1, .mouthBottom.animation1{
 	-webkit-animation-name: mouthAni1;
 	-webkit-animation-duration: 1s;
 	opacity: 1;
@@ -216,7 +233,7 @@ header.period {
 	}
 }
 
-.mouthTop.animation2{
+.mouthTop.animation2, .mouthBottom.animation2{
 	-webkit-animation-name: mouthAni2;
 	-webkit-animation-duration: 1s;
 	background: #FFA600;
@@ -247,5 +264,174 @@ header.period {
 	to{
 		border-top-left-radius: 45% 34px;
 		border-top-right-radius: 45% 34px;
+	}
+}
+
+.mouthBottom.animation3 {
+	-webkit-animation-name: mouthAni4;
+	-webkit-animation-duration: 1s;
+	border-bottom-left-radius: 45% 24px;
+	border-bottom-right-radius: 45% 24px;
+}
+
+@-webkit-keyframes mouthAni4 {
+	from{
+		border-radius: 0;
+	}
+
+	to{
+		border-bottom-left-radius: 45% 24px;
+		border-bottom-right-radius: 45% 24px;
+	}
+}
+
+.lips.animation1 {
+	-webkit-animation-name: lipsAni1;
+	-webkit-animation-duration: 1s;
+	opacity: 1;
+	top:246px;
+}
+
+@-webkit-keyframes lipsAni1{
+	from{
+		opacity: 0;
+		top:246px;
+	}
+
+	to{
+		opacity: 1;
+		top:246px;
+	}
+}
+
+.lips.animation2 {
+	-webkit-animation-name: lipsAni2;
+	-webkit-animation-duration: 2s;
+	background: #FFA600;
+	border-bottom-left-radius: 50% 100%;
+	border-bottom-right-radius: 50% 100%;
+}
+
+@-webkit-keyframes lipsAni2{
+	from {
+		background: transparent;
+		border-radius: 0;
+	}
+
+	50%{
+		background: #FFA600;
+		border-radius: 0;
+	}
+
+	100%{
+		border-bottom-left-radius: 50% 100%;
+		border-bottom-right-radius: 50% 100%;
+	}
+}
+
+.lips.animation3 {
+	-webkit-animation-name: lipsAni3;
+	-webkit-animation-duration: 1s;
+	top:146px;
+}
+
+@-webkit-keyframes lipsAni3{
+	from{
+		top: 246px;
+	}
+
+	to {
+		top: 146px;
+	}
+}
+
+/**
+ * lips shadow animation
+ */
+
+#lsl.animation1 {
+	-webkit-animation-name: lipShadowAni1;
+	-webkit-animation-duration: 2s;
+	top: 144px;
+	opacity: 1;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-right: 8px solid black;
+}
+
+@-webkit-keyframes lipShadowAni1{
+	from {
+		opacity: 0;
+		top: 4px;	
+		border-top: 20px solid transparent;
+		border-bottom: 20px solid transparent;
+	}
+
+	to {
+		opacity: 1;
+		top: 144px;
+	}
+}
+
+#lsl.animation2 {
+	-webkit-animation-name: lipShadowAni2;
+	-webkit-animation-duration: 2s;
+	-webkit-transform-origin: top right;
+	top:144px;
+	-webkit-transform: rotate(-60deg);
+}
+
+@-webkit-keyframes lipShadowAni2{
+	from{
+		-webkit-transform: rotate(0deg);
+		top:144px;
+	}
+
+	to{
+		-webkit-transform: rotate(-60deg);
+		top:144px;
+	}
+}
+
+#lsl.animation3 {
+	-webkit-animation-name: lipShadowAni3;
+	-webkit-animation-duration: 1s;
+	top:4px;
+}
+
+@-webkit-keyframes lipShadowAni3{
+	from{
+		top: 144px;
+	}
+	to{
+		top: 4px;
+	}
+}
+
+#lsr.animation1 {
+	-webkit-animation-name: lipShadowAni4;
+	-webkit-animation-duration: 2s;
+	left: 114px;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-right: 8px solid black;
+	-webkit-transform-origin: top right;
+	-webkit-transform: rotate(60deg) rotateY(180deg);
+	opacity: 1;
+}
+
+@-webkit-keyframes lipShadowAni4{
+	from{
+		left: -12px;
+		opacity: 0;
+		top:4px;
+	}
+	to{
+		top:4px;
+		left: 114px;
+		opacity: 1;
+		border-top: 20px solid transparent;
+		border-bottom: 20px solid transparent;
+		border-right: 8px solid black;
 	}
 }

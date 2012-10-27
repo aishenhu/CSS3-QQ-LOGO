@@ -82,6 +82,26 @@ Jx().$package("qqlogo.period",function(J) {
         
     }
 
+    var PeriodInfo = {
+        init : function(){
+            this.el = $('.periodInfo')[0];
+        },
+
+        show : function(text){
+            text = text || 'QQ Logo Period'
+            this.changeText(text);
+            $D.addClass(this.el, 'period');
+        }, 
+
+        hide : function(){
+            $D.removeClass(this.el, 'period');
+        },
+
+        changeText: function(text){
+            this.el.innerHTML = text;
+        }
+    }
+
     /**
      * module
      */
@@ -272,8 +292,10 @@ Jx().$package("qqlogo.period",function(J) {
     }
 
     var _startPeriodAnimation = function(){ 
-        $U.animationChain.add(head, 'animation1')
-                         .add(head, 'animation2')
+        PeriodInfo.changeText('Let\'s Go');
+        $U.animationChain
+                          .add(head, 'animation1')
+                         .add(head, 'animation2',0,function(){PeriodInfo.changeText('Eye')})
                          .add(leftEye, 'animation1')  
                          .add(leftEye, 'animation2')
                          .add(leftEye, 'animation3')  
@@ -282,7 +304,21 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(rightEye, 'animation3')
                          .add(mouthTop, 'animation1')
                          .add(mouthTop, 'animation2')
-                         .add(mouthTop, 'animation3', 3000, function(){console.log('done')});
+                         .add(mouthTop, 'animation3', 500, function(){mouthTopContainer.style.overflow = "hidden";PeriodInfo.changeText('MouthTop Done!')})
+                         .add(mouthBottom, 'animation1')
+                         .add(mouthBottom, 'animation2')
+                         .add(mouthBottom, 'animation3',500, function(){
+                            mouthBottomContainer.style.overflow = 'hidden';
+                         })
+                         .add(lips, 'animation1')
+                         .add(lips, 'animation2')
+                         .add(lips, 'animation3')
+                         .add(lipShadowLeft, 'animation1')
+                         .add(lipShadowLeft, 'animation2')
+                         .add(lipShadowLeft, 'animation3')
+                         .add(lipShadowRight, 'animation1', 100, function(){
+                            PeriodInfo.changeText('Head Over.');
+                         })
         ;$U.animationChain.start();
     }
 
@@ -304,17 +340,20 @@ Jx().$package("qqlogo.period",function(J) {
     	if(!isPeriod){
     		isPeriod = true;
     		initPeriodStage(); 
-    		_initPeriodAnimation();   		
+    		_initPeriodAnimation();  
+            
     	}else{
     		//isPeriod = false;
     		//endPeriodStage();
     		//_endPeriodAnimation();
-            _startPeriodAnimation();
+            PeriodInfo.show();    //
+            setTimeout(function(){_startPeriodAnimation();},2000);
     	}
     }
 
     var init = function(){
     	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
+        PeriodInfo.init();
     	var count = 0;
     }
 

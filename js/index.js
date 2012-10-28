@@ -66,6 +66,10 @@ Jx().$package("qqlogo.util", function(J){
                     }, ani.delay);
                 } 
             }
+        },
+        reset : function(){
+            this.animations = [];
+            this.cur = 0;
         }
     }
     animationChain.init();
@@ -78,12 +82,8 @@ Jx().$package("qqlogo.period",function(J) {
     	$  = $D.mini,
         $E = J.event,
         $A = J.array,
-        $U = qqlogo.util;
+        $U = qqlogo.util,
         isPeriod = false;
-
-    var CONFIG = {
-        
-    }
 
     var PeriodInfo = {
         init : function(){
@@ -108,10 +108,25 @@ Jx().$package("qqlogo.period",function(J) {
     var Hello = {
         init: function(){
             this.el = $('.hello')[0];
+            $E.on(this.el, 'click', this.onClick);
         },
 
-        show: function(){
+        show: function(text){
+            var text = text || "Hello, World! I'm from TAT!";
+            this.changeText(text);
             $D.addClass(this.el, 'period');
+        },
+
+        changeText: function(text){
+            this.el.innerHTML = text;
+        }, 
+
+        hide : function(){
+            $D.removeClass(this.el, 'period');
+        },
+
+        onClick: function(event){
+            window.location.reload();
         }
     }
 
@@ -194,6 +209,10 @@ Jx().$package("qqlogo.period",function(J) {
                 }
             });
             return count;
+        }, 
+
+        reset : function(){
+            this.modules = [];
         }
     }
 
@@ -391,32 +410,24 @@ Jx().$package("qqlogo.period",function(J) {
         //  */
         $U.animationChain.add(hand, 'animation1',0, function(){PeriodInfo.changeText('Hand')})
                         .add(leftHandTop, 'animation1')
-                        .add(leftHandBottom, 'animation1',100, function(){
-                            setTimeout(function(){
-                                leftHandTopContainer.style.overflow = "hidden";
-                                leftHandBottomContainer.style.overflow = "hidden";
-                            //     rightHandTopContainer.style.overflow = "hidden";
-                            //     rightHandBottomContainer.style.overflow = "hidden";
-                            },1000);
-                        })
+                        .add(leftHandBottom, 'animation1')
                         .add(mLeftHandTopContainer, 'animation1')
-                        .add(mLeftHandBottomContainer, 'animation1')
-                        .add(leftHandTop,'animation2')
+                        .add(mLeftHandBottomContainer, 'animation1', 0, function(){
+                            leftHandTopContainer.style.overflow = "hidden";
+                            leftHandBottomContainer.style.overflow = "hidden";
+                        })
+                        .add(leftHandTop,'animation2', 500)
                         .add(leftHandBottom, 'animation2')
                         .add(rightHandTop, 'animation1')
-                        .add(rightHandBottom, 'animation1', 100, function(){
-                            setTimeout(function(){
-                                // leftHandTopContainer.style.overflow = "hidden";
-                                // leftHandBottomContainer.style.overflow = "hidden";
-                                rightHandTopContainer.style.overflow = "hidden";
-                                rightHandBottomContainer.style.overflow = "hidden";
-                            },1000);
-                        })
+                        .add(rightHandBottom, 'animation1')
                         .add(mRightHandTopContainer, 'animation1')
-                        .add(mRightHandBottomContainer, 'animation1')
-                        .add(rightHandTop,'animation2')
+                        .add(mRightHandBottomContainer, 'animation1', 100, function(){
+                            rightHandTopContainer.style.overflow = "hidden";
+                            rightHandBottomContainer.style.overflow = "hidden";
+                        })
+                        .add(rightHandTop,'animation2', 500)
                         .add(rightHandBottom, 'animation2')
-                        .add(hand, 'animation2',0,function(){
+                        .add(hand, 'animation2',500,function(){
                             PeriodInfo.changeText('Hand Complete! Go Foot')
                         });
 
@@ -489,9 +500,7 @@ Jx().$package("qqlogo.period",function(J) {
     		_initPeriodAnimation();  
             
     	}else{
-    		//isPeriod = false;
-    		//endPeriodStage();
-    		//_endPeriodAnimation();
+    		isPeriod = false;
             PeriodInfo.show();    //
             setTimeout(function(){_startPeriodAnimation();},2000);
     	}
@@ -503,6 +512,8 @@ Jx().$package("qqlogo.period",function(J) {
         Hello.init();
     	var count = 0;
     }
+
+    this.init = init;
 
     $E.onDomReady(init);
 });

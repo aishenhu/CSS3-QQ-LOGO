@@ -28,6 +28,12 @@ header.period {
 	color:#FD971F;
 }
 
+.contentWrapper {
+	-webkit-transition: 1s opacity ease-in-out;
+	position: absolute;
+	width: 100%;
+}
+
 .periodInfo, .hello {
 	-webkit-transition: 1s all ease-in-out;
 	position: absolute;
@@ -45,6 +51,7 @@ header.period {
 	color: #FD971F;
 	opacity: 0;
 	top:1120px;
+	cursor: pointer;
 }
 
 .hello.period{

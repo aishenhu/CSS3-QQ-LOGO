@@ -6,6 +6,30 @@
  * 
  */
 
+.new{
+	color: #FF0052;
+	font-size: 12px;
+	margin: auto 0 0 10px;
+	vertical-align: super;
+	cursor: pointer;
+}
+
+.container {
+	width: 420px;
+	height: 400px;
+	margin: 0 auto;
+	margin-top: 230px;
+	position: relative;
+	display:block;
+}
+
+.introduce {
+	position: absolute;
+}
+
+#qq {
+	margin-top:0;
+}
 /**
  * stage init
  */

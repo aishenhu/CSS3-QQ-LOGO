@@ -85,13 +85,47 @@ Jx().$package("qqlogo.period",function(J) {
         $U = qqlogo.util,
         isPeriod = false;
 
+    // var createTip = function(el){
+    //     return {
+    //         init : function(){
+    //             this.el = el;
+    //         },
+
+    //         show : function(text){
+    //             text = text || 'QQ Logo Period'
+    //             this.changeText(text);
+    //             $D.addClass(this.el, 'period');
+    //         }, 
+
+    //         hide : function(){
+    //             $D.removeClass(this.el, 'period');
+    //         },
+
+    //         changeText: function(text){
+    //             this.el.innerHTML = text;
+    //         } 
+    //     }
+    // }
+
+    // var PeriodInfo = createTip($('.periodInfo')[0]);
+    // var Hello = createTip($('.hello')[0]);
+
+    // Hello.init = function(){
+    //     this.el = $('.hello')[0];
+    //     $E.on(this.el, 'click', this.onClick);
+    // }
+
+    // Hello.onClick = function(){
+    //     window.location.reload();
+    // }
+
     var PeriodInfo = {
         init : function(){
             this.el = $('.periodInfo')[0];
         },
 
         show : function(text){
-            text = text || 'QQ Logo Period'
+            text = text || 'Preparing'
             this.changeText(text);
             $D.addClass(this.el, 'period');
         }, 
@@ -241,6 +275,7 @@ Jx().$package("qqlogo.period",function(J) {
     }
 
     var initPeriodStage = function(){
+        PeriodInfo.show('双击开始动画, :)')
         _periodItem($('body'));
         _periodItem($('header'));
         _periodItem($('.copyright'));
@@ -501,39 +536,69 @@ Jx().$package("qqlogo.period",function(J) {
             
     	}else{
     		isPeriod = false;
-            PeriodInfo.show();    //
-            setTimeout(function(){_startPeriodAnimation();},2000);
+            PeriodInfo.show();
+            setTimeout(function(){_startPeriodAnimation();},1000);
     	}
     }
 
     var init = function(){
-    	$E.addEventListener($D.mini('#qq')[0], 'dblclick', onDbClick);
-        $E.on($('.new')[0], 'click', function(){
-            if(introduce.isShow){
-                introduce.hide();
-            }else{
-                introduce.show();
-            }
-        });
+    	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
+        
         PeriodInfo.init();
         Hello.init();
         introduce.init();
+        New.init();
     	var count = 0;
+    }
+
+    var New = {
+        init: function(){
+                this.el = $('.new')[0];
+                $E.on(this.el, 'click', function(){
+                    if(New.isRecord()){
+                        return;
+                    }
+                    if(introduce.isShow()){
+                        introduce.hide();
+                    }else{
+                        introduce.show();
+                        New.addRecord();
+                        New.hideArrow();
+                    }
+                });
+                if(!this.isRecord()){
+                    this.showArrow();
+                }
+        },
+        addRecord: function(){
+            J.localStorage.setItem('new', '1');
+        },
+        isRecord: function(){
+            // if(J.localStorage.getItem('new') && J.localStorage.getItem('new') == 1){
+            //     return true;
+            // }
+            return false;
+        },
+        showArrow: function(){
+
+        },
+        hideArrow:function(){
+
+        }
     }
 
     var introduce = {
         init : function(){
-
+            this.el = $('.introduce')[0];
         },
         show: function(){
-            this.isShow = true;
-            $D.id('qq').style.marginLeft = '-420px';
-            $('.introduce')[0].style.left = '0px';
+            $D.addClass(this.el, 'show');
         },
         hide: function(){
-            this.isShow = false;
-            $D.id('qq').style.marginLeft = '0px';
-            $('.introduce')[0].style.left = '420px';
+            $D.removeClass(this.el, 'show');
+        },
+        isShow: function(){
+            return $D.hasClass(this.el, 'show');
         }
     }
 

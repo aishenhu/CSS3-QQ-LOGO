@@ -507,11 +507,37 @@ Jx().$package("qqlogo.period",function(J) {
     }
 
     var init = function(){
-    	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
+    	$E.addEventListener($D.mini('#qq')[0], 'dblclick', onDbClick);
+        $E.on($('.new')[0], 'click', function(){
+            if(introduce.isShow){
+                introduce.hide();
+            }else{
+                introduce.show();
+            }
+        });
         PeriodInfo.init();
         Hello.init();
+        introduce.init();
     	var count = 0;
     }
+
+    var introduce = {
+        init : function(){
+
+        },
+        show: function(){
+            this.isShow = true;
+            $D.id('qq').style.marginLeft = '-420px';
+            $('.introduce')[0].style.left = '0px';
+        },
+        hide: function(){
+            this.isShow = false;
+            $D.id('qq').style.marginLeft = '0px';
+            $('.introduce')[0].style.left = '420px';
+        }
+    }
+
+    this.introduce = introduce;
 
     this.init = init;
 

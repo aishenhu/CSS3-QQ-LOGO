@@ -12,6 +12,7 @@
 	margin: auto 0 0 10px;
 	vertical-align: super;
 	cursor: pointer;
+
 }
 
 .container {
@@ -21,15 +22,26 @@
 	margin-top: 230px;
 	position: relative;
 	display:block;
+	overflow: hidden;
 }
 
 .introduce {
 	position: absolute;
+	left: 420px;
+	-webkit-transition:0.4s all ease-in-out;
+	border: 1px solid #91E22E;
+	border-radius: 10px;
+	width: 396px;
+	height: 376px;
+	padding:10px;
+	overflow: hidden;
 }
 
-#qq {
+#qq{
 	margin-top:0;
+	-webkit-transition:0.4s all ease-in-out;
 }
+
 /**
  * stage init
  */
@@ -48,7 +60,7 @@ header, .copyright{
 }
 header.period {
 	top:10px;
-	width: 500px;
+	width: 550px;
 	color:#FD971F;
 }
 

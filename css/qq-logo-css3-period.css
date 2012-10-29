@@ -127,6 +127,17 @@ header.period {
 	color: #36B331;
 }
 
+.periodInfo .container{
+	width: 100%;
+	position: absolute;
+	height: 140px;
+}
+
+.flipInfo {
+	position: absolute;
+	width: 100%;
+}
+
 .hello{
 	color: #FD971F;
 	opacity: 0;

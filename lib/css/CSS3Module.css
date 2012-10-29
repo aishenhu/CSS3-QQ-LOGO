@@ -1,0 +1,111 @@
+/**
+ * CSS3 Module Style
+ * @version 0.1
+ * @author aishenhu
+ * @date 2012.09.28
+ */
+
+/**
+ * FlipContainer: CSS3D Flip效果
+ * ismart-flipcontainer
+ * begin FlipContainer
+ * ---------------------------------------------------------------------------------------
+ */
+.ismart-flipcontainer{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -moz-perspective: 500px;
+    -webkit-perspective: 500px;
+    -o-perspective: 500px;
+    -ms-perspective: 500px;
+    perspective: 500px;
+/*    -webkit-perspective-origin:10% 100%;
+    -webkit-transform:rotateX(50deg);*/
+}
+
+.ismart-flipcontainer .ismart-flipfront{
+    z-index: 100;
+}
+
+.ismart-flipcontainer .ismart-flipbackface{
+    -moz-transform:rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    transform:rotateY(180deg);
+}
+
+.ismart-flipcontainer.flipped .ismart-flipfront{
+    -moz-transform:rotateY(-180deg);
+    -webkit-transform:rotateY(-180deg);
+    transform:rotateY(-180deg);  
+}
+
+.ismart-flipcontainer.flipped .ismart-flipbackface{
+    -moz-transform:rotateY(0deg);
+    -webkit-transform:rotateY(0deg);
+    transform:rotateY(0deg); 
+    z-index: 101;   
+}
+
+.ismart-flipcontainer.flipX .ismart-flipbackface{
+    -moz-transform:rotateX(180deg);
+    -webkit-transform:rotateX(180deg);
+    transform:rotateX(180deg);
+}
+
+.ismart-flipcontainer.flipped.flipX .ismart-flipfront{
+    -moz-transform:rotateX(-180deg);
+    -webkit-transform:rotateX(-180deg);
+    transform:rotateX(-180deg);  
+}
+
+.ismart-flipcontainer.flipped.flipX .ismart-flipbackface{
+    -moz-transform:rotateX(0deg);
+    -webkit-transform:rotateX(0deg);
+    transform:rotateX(0deg); 
+    z-index: 101;   
+}
+
+.ismart-flipcontainer .ismart-flipfront, .ismart-flipcontainer .ismart-flipbackface{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    /* we set a border for the element by default */
+    border: 1px solid #91E22C;
+
+    /* also a border-radius */
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+
+    box-shadow: 0 0 10px #91E22C;
+    
+    /* Enabling 3d space for the transforms */
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    
+    /* When the forms are flipped, they will be hidden */
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    
+    /* Enabling a smooth animated transition */
+    -moz-transition:.8s -moz-transform ease-in-out;
+    -webkit-transition:.8s -webkit-transform ease-in-out;
+    -ms-transition:.8s -ms-transform ease-in-out;
+    -o-transition:.8s -o-transform ease-in-out;
+    transition:.8s transform ease-in-out;
+}
+/**
+ * End FlipContainer
+ * ----------------------------------------------------------------------------------------
+ */

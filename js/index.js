@@ -119,6 +119,30 @@ Jx().$package("qqlogo.period",function(J) {
     var PeriodInfo = {
         init : function(){
             this.el = $('.periodInfo')[0];
+
+            /**
+             * 
+             */
+            var _this = this;
+            (function($){
+                $('.periodInfo .container').flip({
+                    flipfront: $('.front.flipInfo'),
+                    flipbackface: $('.back.flipInfo'),
+                    duration: .5,
+                    timefunction:'linear',
+                    perspective:'800px',
+                    perspectiveOrigin:'50% 50%',
+                    border: 'none',
+                    'box-shadow': 'none',
+                    dir: 'x',
+                    flipGoEnd: function(event){
+                        console.log(this, 'Now, it\'s backface.');
+                    },
+                    flipBackEnd: function(event){
+                        console.log(this, 'Now, we are back!');
+                    }
+                });
+            })(jQuery);
         },
 
         show : function(text){
@@ -132,7 +156,18 @@ Jx().$package("qqlogo.period",function(J) {
         },
 
         changeText: function(text){
-            this.el.innerHTML = text;
+            (function($){
+                var front = $('.front.flipInfo');
+                var back = $('.back.flipInfo');
+                var flip = $('.container'); 
+                if(flip.getFlipState() == true){
+                    front.html(text);
+                }else{
+                    back.html(text);
+                }
+                flip.flipToggle();
+            })(jQuery);
+            //this.el.innerHTML = '<p class="info">'+ text + '</p>';
         }
     }
 
@@ -424,12 +459,12 @@ Jx().$package("qqlogo.period",function(J) {
          * Head part animation
          */
         $U.animationChain.add(head, 'animation1')
-                         .add(head, 'animation2',0,function(){PeriodInfo.changeText('Eye Begin')})
-                         .add(leftEye, 'animation1')  
-                         .add(leftEye, 'animation2')
-                         .add(leftEye, 'animation3')  
-                         .add(rightEye, 'animation1')
-                         .add(rightEye, 'animation2')
+                         .add(head, 'animation2',0,function(){PeriodInfo.changeText('Eye Begin, step 1');})
+                         .add(leftEye, 'animation1',0,function(){PeriodInfo.changeText('step 2')})  
+                         .add(leftEye, 'animation2',0,function(){PeriodInfo.changeText('step 3')})
+                         .add(leftEye, 'animation3',0,function(){PeriodInfo.changeText('step 4')})  
+                         .add(rightEye, 'animation1',0,function(){PeriodInfo.changeText('step 5')})
+                         .add(rightEye, 'animation2',0,function(){PeriodInfo.changeText('step 6')})
                          .add(rightEye, 'animation3',0, function(){PeriodInfo.changeText('Mouth Begin')})
                          .add(mouthTop, 'animation1')
                          .add(mouthTop, 'animation2')
@@ -596,7 +631,6 @@ Jx().$package("qqlogo.period",function(J) {
                         introduce.hide();
                     }else{
                         introduce.show();                        
-                        New.hideArrow();
                     }
                     New.addRecord();
                 });

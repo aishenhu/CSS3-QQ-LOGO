@@ -10,17 +10,31 @@
  * @description: QQ Logo Period Animation
  * -------------------------------------------------------------- 2012.10.25 ----------------------------
  */
+
+/**
+ * 工具类
+ * @return
+ */
 Jx().$package("qqlogo.util", function(J){
     var $A = J.array,
         $D = J.dom,
         $E = J.event;
+
     var isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
 
+    /**
+     * 动画管理，串行执行一个序列的动画，支持时间延迟
+     * 和自定义的回调函数
+     * @type {Object}
+     */
     var animationChain = {
         cur: 0,
         animations : [],
+        /**
+         * 使用'#qq' div进行webkitAnimationEnd事件统一监听处理
+         */
         init: function(){
             $E.on($D.id('qq'), 'webkitAnimationEnd', function(){
                 console.log('qq ', animationChain.cur);
@@ -43,9 +57,14 @@ Jx().$package("qqlogo.util", function(J){
                 callback: callback
             }
             this.animations.push(ani);
-            return animationChain;
+            return animationChain;  //返回animationChain方便链式添加处理
         },
 
+        /**
+         * 执行动画序列
+         * 先移除动画列表中每个元素的transition，transition和animation共同
+         * 作用时，有时会有bug
+         */
         start: function(){
             console.log(this.animations);
             $A.forEach(this.animations, function(item){
@@ -54,6 +73,10 @@ Jx().$package("qqlogo.util", function(J){
             this.next(this.cur);
         },
 
+        /**
+         * 执行下一个元素预定义的动画
+         * 对延迟进行处理
+         */
         next: function(id){   
             var cur = this.cur;
             if(cur < this.animations.length){        
@@ -67,6 +90,10 @@ Jx().$package("qqlogo.util", function(J){
                 } 
             }
         },
+
+        /**
+         * 重置动画列表数据
+         */
         reset : function(){
             this.animations = [];
             this.cur = 0;
@@ -85,6 +112,10 @@ Jx().$package("qqlogo.period",function(J) {
         $U = qqlogo.util,
         isPeriod = false;
 
+    /**
+     * 分解动画过程中的字幕提示
+     * @type {Object}
+     */
     var PeriodInfo = {
         init : function(){
             this.el = $('.periodInfo')[0];

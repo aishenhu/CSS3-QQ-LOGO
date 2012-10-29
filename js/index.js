@@ -36,7 +36,7 @@ Jx().$package("qqlogo.util", function(J){
          * 使用'#qq' div进行webkitAnimationEnd事件统一监听处理
          */
         init: function(){
-            $E.on($D.id('qq'), 'webkitAnimationEnd', function(){
+            var handler = function(){
                 console.log('qq ', animationChain.cur);
                 var ani = animationChain.animations[animationChain.cur];
                 if(ani.callback){
@@ -44,7 +44,9 @@ Jx().$package("qqlogo.util", function(J){
                 }
                 animationChain.cur ++;
                 animationChain.next();                
-            });
+            }
+            $E.on($D.id('qq'), 'webkitAnimationEnd', handler);
+            $E.on($D.id('qq'), 'mozAnimationEnd', handler);
         },
         add : function(element, aniName, delay, callback){
             delay = delay || 0;
@@ -69,6 +71,7 @@ Jx().$package("qqlogo.util", function(J){
             console.log(this.animations);
             $A.forEach(this.animations, function(item){
                 item.element.el.style.webkitTransition = 'none';
+                item.element.el.style.mozTransition = 'none';
             });
             this.next(this.cur);
         },
@@ -121,7 +124,7 @@ Jx().$package("qqlogo.period",function(J) {
             this.el = $('.periodInfo')[0];
 
             /**
-             * 
+             * 使用FlipContainer(@CSS3Module)处理信息提示
              */
             var _this = this;
             (function($){
@@ -167,7 +170,6 @@ Jx().$package("qqlogo.period",function(J) {
                 }
                 flip.flipToggle();
             })(jQuery);
-            //this.el.innerHTML = '<p class="info">'+ text + '</p>';
         }
     }
 
@@ -499,7 +501,9 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(inner, 'animation1')
                          .add(scarfEnd, 'animation1')
                          .add(scarfEnd, 'animation2')
-                         .add(scarf, 'animation2')
+                         .add(scarf, 'animation2',0, function(){
+                            PeriodInfo.changeText('Paint the body')
+                         })
                          .add(outter, 'animation2')
                          .add(inner, 'animation2')
                          .add(scarfEnd, 'animation3')
@@ -518,9 +522,12 @@ Jx().$package("qqlogo.period",function(J) {
                         .add(mLeftHandBottomContainer, 'animation1', 0, function(){
                             leftHandTopContainer.style.overflow = "hidden";
                             leftHandBottomContainer.style.overflow = "hidden";
+
                         })
                         .add(leftHandTop,'animation2', 500)
-                        .add(leftHandBottom, 'animation2')
+                        .add(leftHandBottom, 'animation2', 0, function(){
+                            PeriodInfo.changeText('Left hand done');
+                        })
                         .add(rightHandTop, 'animation1')
                         .add(rightHandBottom, 'animation1')
                         .add(mRightHandTopContainer, 'animation1')
@@ -529,7 +536,9 @@ Jx().$package("qqlogo.period",function(J) {
                             rightHandBottomContainer.style.overflow = "hidden";
                         })
                         .add(rightHandTop,'animation2', 500)
-                        .add(rightHandBottom, 'animation2')
+                        .add(rightHandBottom, 'animation2', 0,function(){
+                            PeriodInfo.changeText('Right Hand Done. Rush to body.');
+                        })
                         .add(hand, 'animation2',500,function(){
                             PeriodInfo.changeText('Hand Complete! Go Foot')
                         });
@@ -551,11 +560,12 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(rightFootTop, 'animation2',0, function(){
                             PeriodInfo.changeText('Will Cut by Container')
                          })
-                         .add(rightFootBottom, 'animation2',0, function(){
+                         .add(rightFootBottom, 'animation2',200, function(){
                             leftFootTopWrapper.style.overflow = "hidden";
                             leftFootBottomWrapper.style.overflow = "hidden";
                             rightFootTopWrapper.style.overflow = "hidden";
                             rightFootBottomWrapper.style.overflow = "hidden";
+                            PeriodInfo.changeText('WoW, new shoes, ^_^');
                          })
                          .add(foot, 'animation2', 500, function(){
                             PeriodInfo.changeText('Foot Done. Go Shadow Fix')
@@ -566,7 +576,7 @@ Jx().$package("qqlogo.period",function(J) {
          * shadow fix animation
          */
         $U.animationChain.add(scarfShadow, 'animation1', 200, function(){
-                                PeriodInfo.changeText('Shadow Fix');
+                                PeriodInfo.changeText('Shadow Fix Working');
                             })
                          .add(scarfShadowRight, 'animation1')
                          .add(scarfEndShadow, 'animation1')

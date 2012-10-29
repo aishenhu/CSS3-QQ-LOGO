@@ -7,39 +7,82 @@
  */
 
 .new{
-	color: #FF0052;
+	color: red;
 	font-size: 12px;
 	margin: auto 0 0 10px;
 	vertical-align: super;
 	cursor: pointer;
-
+	position: relative;
 }
 
-.container {
-	width: 420px;
-	height: 400px;
-	margin: 0 auto;
-	margin-top: 230px;
-	position: relative;
-	display:block;
-	overflow: hidden;
+.newArrow{
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border-top: 1px solid green;
+	border-bottom: 1px solid green;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+	border-radius: 50%;
+	top: -3px;
+	left: -4px;
+	-webkit-animation-name: newArrowAni1;
+	-webkit-animation-duration:1s;
+	-webkit-animation-iteration-count:infinite;
+}
+
+@-webkit-keyframes newArrowAni1{
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+
+	to {
+		-webkit-transform: rotate(360deg);
+	}
 }
 
 .introduce {
 	position: absolute;
-	left: 420px;
-	-webkit-transition:0.4s all ease-in-out;
-	border: 1px solid #91E22E;
+	top: -500px;
+	-webkit-transition: 0.4s all ease-in-out;
 	border-radius: 10px;
-	width: 396px;
+	width: 300px;
 	height: 376px;
-	padding:10px;
+	padding: 10px;
+	background: black;
+	z-index: 1000;
 	overflow: hidden;
+	right: 10px;
+	color: #FCFCFC;
+	font-family: '微软雅黑',sans-serif;
+	font-size: 14px;
+	line-height: 32px;
+	box-shadow: -4px 10px 6px #777;
 }
 
-#qq{
-	margin-top:0;
-	-webkit-transition:0.4s all ease-in-out;
+.introduce .title {
+	font-style: italic;
+	font-size: 1.2em;
+}
+
+.introduce .tip{
+	position: absolute;
+	bottom: 10px;
+	text-align: center;
+}
+
+.add li, .how li{
+	-webkit-transition: 0.4s all ease;
+}
+
+.add li:hover, .how li:hover{
+	-webkit-transition: 0.3s all ease;
+	padding-left: 20px;
+	color: yellow;
+}
+
+.introduce.show{
+	top: 10px;
 }
 
 /**
@@ -71,7 +114,8 @@ header.period {
 }
 
 .periodInfo, .hello {
-	-webkit-transition: 1s all ease-in-out;
+	-webkit-transition: 1.5s all ease-in-out;
+	text-shadow: 0 0 3px;
 	position: absolute;
 	top: -100px;
 	width: 100%;
@@ -91,7 +135,7 @@ header.period {
 }
 
 .hello.period{
-	top:620px;
+	top:150px;
 	opacity: 1;
 }
 

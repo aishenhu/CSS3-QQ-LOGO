@@ -1,4 +1,4 @@
-/**
+﻿/**
  * == QQ Logo Period Animation =========================================================================
  * Copyright (c) 2012 Tencent AlloyTeam, All rights reserved.
  * http://www.AlloyTeam.com/
@@ -122,7 +122,7 @@ Jx().$package("qqlogo.period",function(J) {
         },
 
         show : function(text){
-            text = text || 'QQ Logo Period'
+            text = text || 'Preparing'
             this.changeText(text);
             $D.addClass(this.el, 'period');
         }, 
@@ -136,6 +136,9 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    /**
+     * 结束语
+     */
     var Hello = {
         init: function(){
             this.el = $('.hello')[0];
@@ -162,7 +165,7 @@ Jx().$package("qqlogo.period",function(J) {
     }
 
     /**
-     * module
+     * qq logo 的各个组成模块(module)
      */
     var head, 
         body, 
@@ -199,6 +202,7 @@ Jx().$package("qqlogo.period",function(J) {
 
     /**
      * module container
+     * 用于定位和元素切割
      */
     var mouthTopContainer,
         mouthBottomContainer,
@@ -212,6 +216,10 @@ Jx().$package("qqlogo.period",function(J) {
         rightFootTopWrapper,
         rightFootBottomWrapper;
 
+    /**
+     * 对module进行统一的管理
+     * @type {Object}
+     */
     var Modules = {
         modules: [],
         baseLeft: 0,
@@ -225,6 +233,11 @@ Jx().$package("qqlogo.period",function(J) {
             return this;
         },
 
+        /**
+         * 动画模式切换
+         * @param  {Boolean} isRemove true表示进入动画模式，false表示退出
+         * @return 
+         */
         period: function(isRemove){
             var _this = this;
             $A.forEach(this.modules, function(item){
@@ -232,6 +245,10 @@ Jx().$package("qqlogo.period",function(J) {
             })
         },
 
+        /**
+         * 获取已经进入到动画模式的module的个数
+         * @return {[number]}
+         */
         getPeriodCount: function(){
             var count = 0;
             $A.forEach(this.modules, function(item){
@@ -247,6 +264,13 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    /**
+     * 通过module统一动画过程
+     * @param  {dom element} el   相关联的dom元素
+     * @param  {number} left position left
+     * @param  {number} top  position top
+     * @return 
+     */
     function module(el ,left, top){
         this.left = left || 0;
         this.top = top || 0;
@@ -271,7 +295,15 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    /**
+     * 初始化Stage
+     * 1、背景标题切换
+     * 2、父层容器初始化，设置overflow为visible
+     * 3、初始化module和Modules
+     * @return {[type]} [description]
+     */
     var initPeriodStage = function(){
+        PeriodInfo.show('双击开始动画, :)')
         _periodItem($('body'));
         _periodItem($('header'));
         _periodItem($('.copyright'));
@@ -381,6 +413,11 @@ Jx().$package("qqlogo.period",function(J) {
         Modules.period();
     }
 
+    /**
+     * 开始重组的动画
+     * 依次添加module的自定义动画，自定义动画的细节
+     * 定义在qq-logo-css3-period.css文件中
+     */
     var _startPeriodAnimation = function(){ 
         PeriodInfo.changeText('Let\'s Go');
         /**
@@ -436,9 +473,9 @@ Jx().$package("qqlogo.period",function(J) {
                          });
 
 
-        // /**
-        //  * hand part animation
-        //  */
+        /**
+         * hand part animation
+         */
         $U.animationChain.add(hand, 'animation1',0, function(){PeriodInfo.changeText('Hand')})
                         .add(leftHandTop, 'animation1')
                         .add(leftHandBottom, 'animation1')
@@ -532,39 +569,68 @@ Jx().$package("qqlogo.period",function(J) {
             
     	}else{
     		isPeriod = false;
-            PeriodInfo.show();    //
-            setTimeout(function(){_startPeriodAnimation();},2000);
+            PeriodInfo.show();
+            setTimeout(function(){_startPeriodAnimation();},1000);
     	}
     }
 
     var init = function(){
-    	$E.addEventListener($D.mini('#qq')[0], 'dblclick', onDbClick);
-        $E.on($('.new')[0], 'click', function(){
-            if(introduce.isShow){
-                introduce.hide();
-            }else{
-                introduce.show();
-            }
-        });
+    	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
+        
         PeriodInfo.init();
         Hello.init();
         introduce.init();
+        New.init();
     	var count = 0;
     }
 
+    /**
+     * 新标签，切换更新介绍。使用本地存储，记录是否已经查看
+     * @type {Object}
+     */
+    var New = {
+        init: function(){
+                this.el = $('.new')[0];
+                $E.on(this.el, 'click', function(){
+                    if(introduce.isShow()){
+                        introduce.hide();
+                    }else{
+                        introduce.show();                        
+                        New.hideArrow();
+                    }
+                    New.addRecord();
+                });
+                if(!this.isRecord()){
+                    setTimeout(function(){introduce.show();}, 500);
+                }
+        },
+        addRecord: function(){
+            J.localStorage.setItem('new', '1');
+        },
+        isRecord: function(){
+            if(J.localStorage.getItem('new') && J.localStorage.getItem('new') == 1){
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * 新版本的更新介绍
+     * @type {Object}
+     */
     var introduce = {
         init : function(){
-
+            this.el = $('.introduce')[0];
         },
         show: function(){
-            this.isShow = true;
-            $D.id('qq').style.marginLeft = '-420px';
-            $('.introduce')[0].style.left = '0px';
+            $D.addClass(this.el, 'show');
         },
         hide: function(){
-            this.isShow = false;
-            $D.id('qq').style.marginLeft = '0px';
-            $('.introduce')[0].style.left = '420px';
+            $D.removeClass(this.el, 'show');
+        },
+        isShow: function(){
+            return $D.hasClass(this.el, 'show');
         }
     }
 

@@ -275,7 +275,7 @@ Jx().$package("qqlogo.period",function(J) {
     }
 
     var initPeriodStage = function(){
-        PeriodInfo.show('ÂèåÂáªÂºÄÂßãÂä®Áîª, :)')
+        PeriodInfo.show('À´ª˜ø™ º∂Øª≠, :)')
         _periodItem($('body'));
         _periodItem($('header'));
         _periodItem($('.copyright'));
@@ -555,35 +555,26 @@ Jx().$package("qqlogo.period",function(J) {
         init: function(){
                 this.el = $('.new')[0];
                 $E.on(this.el, 'click', function(){
-                    if(New.isRecord()){
-                        return;
-                    }
                     if(introduce.isShow()){
                         introduce.hide();
                     }else{
-                        introduce.show();
-                        New.addRecord();
+                        introduce.show();                        
                         New.hideArrow();
                     }
+                    New.addRecord();
                 });
                 if(!this.isRecord()){
-                    this.showArrow();
+                    setTimeout(function(){introduce.show();}, 500);
                 }
         },
         addRecord: function(){
             J.localStorage.setItem('new', '1');
         },
         isRecord: function(){
-            // if(J.localStorage.getItem('new') && J.localStorage.getItem('new') == 1){
-            //     return true;
-            // }
+            if(J.localStorage.getItem('new') && J.localStorage.getItem('new') == 1){
+                return true;
+            }
             return false;
-        },
-        showArrow: function(){
-
-        },
-        hideArrow:function(){
-
         }
     }
 

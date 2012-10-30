@@ -246,6 +246,26 @@ header.period {
 
 }
 
+.eye{
+	-webkit-animation-name: blink;
+	-webkit-animation-duration: 4s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blink{
+	from{
+		-webkit-transform: scaleY(1)
+	}
+
+	1%{
+		-webkit-transform: scaleY(0.01)
+	}
+
+	2%{
+		-webkit-transform: scaleY(1)
+	}
+}
+
 .eye.period{
 	border:1px solid #000;
 	border-radius: 0;

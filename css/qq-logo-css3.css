@@ -116,7 +116,7 @@ header{
 
 .innerLeftEye.blink{
 	-webkit-animation-name: innerEyeBlink;
-	-webkit-animation-duration: .3s;
+	-webkit-animation-duration: .2s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-transform-origin: 9px 12px;
 }
@@ -127,7 +127,7 @@ header{
 	}
 
 	50%{
-		-webkit-transform: rotate(-20deg)
+		-webkit-transform: rotate(-5deg)
 	}
 
 	100% {

@@ -102,6 +102,39 @@ header{
 	border-radius: 50%;
 }
 
+.innerLeftEye:before{
+	content: "";
+	position: absolute;
+	width: 3px;
+	height: 4px;
+	background: white;
+	z-index: 11;
+	top: 14px;
+	left: 4px;
+	border-radius: 50%;
+}
+
+.innerLeftEye.blink{
+	-webkit-animation-name: innerEyeBlink;
+	-webkit-animation-duration: .3s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-transform-origin: 9px 12px;
+}
+
+@-webkit-keyframes innerEyeBlink{
+	from{
+		-webkit-transform: rotate(0deg);
+	}
+
+	50%{
+		-webkit-transform: rotate(-20deg)
+	}
+
+	100% {
+		-webkit-transform: rotate(0deg)
+	}
+}
+
 .innerRightEye{
 	position: absolute;
 	width: 18px;
@@ -398,7 +431,7 @@ header{
 }
 
 .leftHandBottomContainer {
-	width: 100px;
+	width: 115px;
 	height: 30px;
 	position: absolute;
 	z-index: 1;

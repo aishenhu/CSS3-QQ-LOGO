@@ -254,6 +254,73 @@ header.period {
 	opacity: 0;
 }
 
+.eyelipLeftTop, .eyelipRightTop{
+	top: -2px;
+	left: -2px;
+	display: none;
+}
+
+.eyelipLeftBottom, .eyelipRightBottom{
+	bottom:-2px;
+	left:-2px;
+	display: none;
+}
+
+@-webkit-keyframes eyelipAni1{
+	from {
+		height: 0px;
+	}
+
+	2% {
+		height: 34px;
+	}
+	4%{
+		height: 0px;
+	}
+
+	to{
+		height: 0px;
+	}
+}
+
+.eyelipLeftTop.blink, .eyelipRightTop.blink,
+.eyelipLeftBottom.blink, .eyelipRightBottom.blink{
+	display: block;
+	height: 0px;
+	position: absolute;
+	width: 46px;
+	background: black;
+	border: 1px black solid;
+	z-index: 100;
+	-webkit-animation-name: eyelipAni1;
+	-webkit-animation-duration: 8s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+.eyelipRight {
+	width: 46px;
+	top: -2px;
+	left: -2px;
+	height: 28px;
+	position: absolute;
+	background: black;
+	border: 1px black solid;
+	z-index: 100;
+	-webkit-animation-name: eyelipAni3;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes eyelipAni3{
+	from {
+		height: 28px;
+	}
+
+	to{
+		height: 68px;
+	}
+}
+
 /**
  * head animation
  */
@@ -1836,6 +1903,7 @@ header.period {
 	-moz-animation-duration: 2s;
 	background: #FF9C00;
 	border-top-left-radius: 80% 70%;
+	border-top-right-radius: 50%;
 }
 
 @-webkit-keyframes lFTAni1 {
@@ -1847,6 +1915,7 @@ header.period {
 	50%{
 		background: transparent;
 		border-top-left-radius: 80% 70%;
+		border-top-right-radius: 50% 70%;
 	}
 
 	to{
@@ -1863,6 +1932,7 @@ header.period {
 	50%{
 		background: transparent;
 		border-top-left-radius: 80% 70%;
+		border-top-right-radius: 50% 70%;
 	}
 
 	to{
@@ -1876,7 +1946,7 @@ header.period {
 	-webkit-animation-duration: 1s;
 	-moz-animation-name: lFTAni2;
 	-moz-animation-duration: 1s;
-	top: -10px;
+	top: 0px;
 	left: 3px;
 }
 
@@ -1887,7 +1957,7 @@ header.period {
 	}
 
 	to{
-		top: -10px;
+		top: 0px;
 		left: 3px;
 	}
 }
@@ -1899,7 +1969,7 @@ header.period {
 	}
 
 	to{
-		top: -10px;
+		top: 0px;
 		left: 3px;
 	}
 }
@@ -2072,6 +2142,7 @@ header.period {
 	-moz-animation-duration: 2s;
 	background: #FF9C00;
 	border-top-right-radius: 32% 65%;
+	border-top-left-radius: 50% 45%;
 }
 
 @-webkit-keyframes rFTAni1 {
@@ -2083,6 +2154,7 @@ header.period {
 	50%{
 		background: transparent;
 		border-top-right-radius: 32% 65%;
+		border-top-left-radius: 50% 45%;
 	}
 
 	to{
@@ -2099,6 +2171,7 @@ header.period {
 	50%{
 		background: transparent;
 		border-top-right-radius: 32% 65%;
+		border-top-left-radius: 50% 45%;
 	}
 
 	to{
@@ -2439,5 +2512,31 @@ header.period {
 	}
 }
 
+/**
+ * mask
+ */
 
+#mask {
+	position: absolute;
+	z-index: 9999;
+}
 
+.headmask {
+	/*left: 120px;
+	top: 40px;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-top-left-radius: 100%;
+	background: -webkit-gradient(radial, 50% 50%,0,50% 50%,40, from(rgba(255, 255, 255, 1)), to(transparent));*/
+}
+
+.mouthmask {
+/*	left: 110px;
+	top: 130px;
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	border-top-left-radius: 100%;
+	background: -webkit-radial-gradient(ellipse closest-side, #FFA600, #fff);*/
+}

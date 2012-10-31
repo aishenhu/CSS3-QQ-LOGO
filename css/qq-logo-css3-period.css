@@ -246,7 +246,7 @@ header.period {
 
 }
 
-.eye{
+.eye.blink{
 	-webkit-animation-name: blink;
 	-webkit-animation-duration: 4s;
 	-webkit-animation-iteration-count: infinite;

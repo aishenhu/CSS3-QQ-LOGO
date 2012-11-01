@@ -712,6 +712,11 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    /**
+     * 开场动画
+     */
+    
+
     this.introduce = introduce;
 
     this.init = init;

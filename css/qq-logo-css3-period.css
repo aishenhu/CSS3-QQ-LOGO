@@ -2536,19 +2536,19 @@ header.period {
  * mask
  */
 
-#mask {
+#lightmask {
 	position: absolute;
 	z-index: 9999;
 }
 
 .headmask {
-	/*left: 120px;
+/*	left: 120px;
 	top: 40px;
 	position: absolute;
 	width: 40px;
 	height: 40px;
 	border-top-left-radius: 100%;
-	background: -webkit-gradient(radial, 50% 50%,0,50% 50%,40, from(rgba(255, 255, 255, 1)), to(transparent));*/
+	background:-webkit-gradient(radial, 118 64, 0, 100 44, 40,  from(#000), to(#fff))*/
 }
 
 .mouthmask {
@@ -2560,3 +2560,24 @@ header.period {
 	border-top-left-radius: 100%;
 	background: -webkit-radial-gradient(ellipse closest-side, #FFA600, #fff);*/
 }
+
+#qq{
+	-webkit-animation-name: startAni;
+	-webkit-animation-duration: 1s;
+}
+
+@-webkit-keyframes startAni{
+	from{
+		left: 210px;
+		-webkit-transform: rotate(360deg) scale(.0001);
+	}
+
+	70%{
+		-webkit-transform: rotate(0deg) scale(1.5);
+	}
+
+	to{
+		-webkit-transform: rotate(0deg) scale(1);
+	}
+}
+

@@ -303,6 +303,23 @@ header.period {
 	}
 }
 
+@-moz-keyframes eyelipAni1{
+	from {
+		height: 0px;
+	}
+
+	2% {
+		height: 34px;
+	}
+	4%{
+		height: 0px;
+	}
+
+	to{
+		height: 0px;
+	}
+}
+
 .eyelipLeftTop.blink, .eyelipRightTop.blink,
 .eyelipLeftBottom.blink, .eyelipRightBottom.blink{
 	display: block;
@@ -315,6 +332,10 @@ header.period {
 	-webkit-animation-name: eyelipAni1;
 	-webkit-animation-duration: 8s;
 	-webkit-animation-iteration-count: infinite;
+
+	-moz-animation-name: eyelipAni1;
+	-moz-animation-duration: 8s;
+	-moz-animation-iteration-count: infinite;
 }
 
 .eyelipRight {
@@ -2564,6 +2585,8 @@ header.period {
 #qq{
 	-webkit-animation-name: startAni;
 	-webkit-animation-duration: 1s;
+	-moz-animation-name: startAni;
+	-moz-animation-duration: 1s;
 }
 
 @-webkit-keyframes startAni{
@@ -2580,4 +2603,20 @@ header.period {
 		-webkit-transform: rotate(0deg) scale(1);
 	}
 }
+
+@-moz-keyframes startAni{
+	from{
+		left: 210px;
+		-moz-transform: rotate(360deg) scale(.0001);
+	}
+
+	70%{
+		-moz-transform: rotate(0deg) scale(1.5);
+	}
+
+	to{
+		-moz-transform: rotate(0deg) scale(1);
+	}
+}
+
 

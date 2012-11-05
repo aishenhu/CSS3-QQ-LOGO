@@ -119,6 +119,11 @@ header{
 	-webkit-animation-duration: .2s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-transform-origin: 9px 12px;
+
+	-moz-animation-name: innerEyeBlink;
+	-moz-animation-duration: .2s;
+	-moz-animation-iteration-count: infinite;
+	-moz-transform-origin: 9px 12px;
 }
 
 @-webkit-keyframes innerEyeBlink{
@@ -132,6 +137,20 @@ header{
 
 	100% {
 		-webkit-transform: rotate(0deg)
+	}
+}
+
+@-moz-keyframes innerEyeBlink{
+	from{
+		-moz-transform: rotate(0deg);
+	}
+
+	50%{
+		-moz-transform: rotate(-5deg)
+	}
+
+	100% {
+		-moz-transform: rotate(0deg)
 	}
 }
 

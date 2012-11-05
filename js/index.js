@@ -36,17 +36,20 @@ Jx().$package("qqlogo.util", function(J){
          * 使用'#qq' div进行webkitAnimationEnd事件统一监听处理
          */
         init: function(){
+            this.cur = 0;
             var handler = function(){
                 console.log('qq ', animationChain.cur);
                 var ani = animationChain.animations[animationChain.cur];
-                if(ani.callback){
-                    ani.callback();
+                console.log(ani);
+                if(ani){
+                    ani.callback && ani.callback();
+                    animationChain.cur ++;
+                    animationChain.next();  
                 }
-                animationChain.cur ++;
-                animationChain.next();                
+                              
             }
             $E.on($D.id('qq'), 'webkitAnimationEnd', handler);
-            $E.on($D.id('qq'), 'mozAnimationEnd', handler);
+            $E.on($D.id('qq'), 'animationend', handler);
         },
         add : function(element, aniName, delay, callback){
             delay = delay || 0;
@@ -102,7 +105,7 @@ Jx().$package("qqlogo.util", function(J){
             this.cur = 0;
         }
     }
-    animationChain.init();
+    //animationChain.init();
     this.isArray = isArray;
     this.animationChain = animationChain;
 });
@@ -620,6 +623,7 @@ Jx().$package("qqlogo.period",function(J) {
             }
     		isPeriod = false;
             PeriodInfo.show();
+            $U.animationChain.init();
             setTimeout(function(){_startPeriodAnimation();},1000);
     	}
     }

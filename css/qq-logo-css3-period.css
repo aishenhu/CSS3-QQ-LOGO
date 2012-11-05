@@ -70,7 +70,7 @@
 	color: #FCFCFC;
 	font-family: '微软雅黑',sans-serif;
 	font-size: 14px;
-	line-height: 32px;
+	line-height: 26px;
 	box-shadow: -4px 10px 6px #777;
 }
 
@@ -99,6 +99,27 @@
 
 .introduce.show{
 	top: 10px;
+}
+
+.console {
+	position: fixed;
+	bottom: 10px;
+	right: -700px;
+	width: 400px;
+	height: 200px;
+	background: #000;
+	border-radius: 10px;
+	padding: 4px 10px;
+	line-height: 20px;
+	font-size: 16px;
+	color: #FD971F;
+	-webkit-transition: 0.4s right ease;
+	-moz-transition: 0.4s right ease;
+	overflow-y: scroll;
+}
+
+.console p{
+	margin:0 0 1px;
 }
 
 /**

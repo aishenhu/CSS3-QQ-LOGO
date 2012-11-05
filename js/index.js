@@ -15,15 +15,15 @@
  * 工具类
  * @return
  */
-Jx().$package("qqlogo.util", function(J){
+;Jx().$package("qqlogo.util", function(J){
     var $A = J.array,
         $D = J.dom,
-        $E = J.event;
+        $E = J.event,
+        $C = J.console;
 
     var isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
-
     /**
      * 动画管理，串行执行一个序列的动画，支持时间延迟
      * 和自定义的回调函数
@@ -37,6 +37,7 @@ Jx().$package("qqlogo.util", function(J){
          */
         init: function(){
             this.cur = 0;
+            this.controller = $D.id('qq');
             var handler = function(){
                 console.log('qq ', animationChain.cur);
                 var ani = animationChain.animations[animationChain.cur];
@@ -48,8 +49,11 @@ Jx().$package("qqlogo.util", function(J){
                 }
                               
             }
-            $E.on($D.id('qq'), 'webkitAnimationEnd', handler);
-            $E.on($D.id('qq'), 'animationend', handler);
+            $E.on(this.controller, 'webkitAnimationEnd', handler);
+            $E.on(this.controller, 'animationend', handler);
+            $E.on(document, 'keyup', this.onKeyUp);
+            $E.on(document, 'keypress', this.onKeyPress);
+            $E.on(document, 'keydown', this.onDown);
         },
         add : function(element, aniName, delay, callback){
             delay = delay || 0;
@@ -72,11 +76,12 @@ Jx().$package("qqlogo.util", function(J){
          */
         start: function(){
             console.log(this.animations);
+            J.console.log('animation start: total ' + this.animations.length);
             $A.forEach(this.animations, function(item){
                 item.element.el.style.webkitTransition = 'none';
                 item.element.el.style.mozTransition = 'none';
             });
-            this.next(this.cur);
+            this.next(0);
         },
 
         /**
@@ -84,14 +89,17 @@ Jx().$package("qqlogo.util", function(J){
          * 对延迟进行处理
          */
         next: function(id){   
-            var cur = this.cur;
+            var cur = id || this.cur;
             if(cur < this.animations.length){        
                 var ani = this.animations[cur];
                 if(ani.delay == 0){
                     ani.element.start(ani.aniName);
+                    J.console.log('run animation ' + this.cur);
                 }else{
+                    var _this = this;
                     setTimeout(function(){
                         ani.element.start(ani.aniName);
+                        J.console.log('run animation ' + _this.cur);
                     }, ani.delay);
                 } 
             }
@@ -103,11 +111,134 @@ Jx().$package("qqlogo.util", function(J){
         reset : function(){
             this.animations = [];
             this.cur = 0;
+        },
+
+        stop: function(){
+            var ani = this.animations[this.cur];
+            ani.element.el.style.webkitAnimationPlayState = 'paused';
+            ani.element.el.style.mozAnimationPlayState = 'paused';
+            ani.element.el.style.animationplaystate = 'paused';
+            J.console.log('stop animation');
+        },
+
+        resume: function(){
+            var ani = this.animations[this.cur];
+            ani.element.el.style.webkitAnimationPlayState = 'running';
+            ani.element.el.style.MozAnimationPlayState = 'running';
+            ani.element.el.style.animationPlayState = 'running';
+            J.console.log('resume animation');
+        },
+
+        back: function(msg){
+            var ani = this.animations[this.cur];
+            if(this.cur > 0){
+                this.cur --;
+            }
+            ani.element.back(ani.aniName);
+            ani = this.animations[this.cur]; 
+            ani.element.back(ani.aniName);
+            this.next(this.cur);
+            qqlogo.period.PeriodInfo.show('');
+            J.console.log('back one animation, current animation index: '+ this.cur);
+        },
+
+        restart: function(){
+            while(this.cur >= 0){
+                var ani = this.animations[this.cur];
+                ani && ani.element.back(ani.aniName);
+                this.cur --;
+            }
+            this.cur = 0;
+            this.next(0);
+            qqlogo.period.PeriodInfo.show('');
+            qqlogo.period.Hello.hide();
+            qqlogo.period.resetContainer();
+            J.console.log('restart');
+        },
+
+        onKeyPress: function(event){
+            var code = event.keyCode;
+            //console.log(code);
+            if(event.keyCode == 32){
+                event.preventDefault();
+            }
+        },
+
+        onKeyUp: function(event){
+            var code = event.keyCode;
+            console.log('code:',code);
+            switch(code){
+                case 82: { //R
+                    animationChain.restart();
+                    event.preventDefault();
+                }
+                case 37: { //left
+                    animationChain.back();
+                    event.preventDefault();
+                    break;
+                }
+                case 38: { // right
+                    event.preventDefault();
+                    break;
+                }
+                case 32: { //space
+                    var ani = animationChain.animations[animationChain.cur];
+                    var isStop = (ani.element.el.style.webkitAnimationPlayState == 'paused')  || (ani.element.el.style.mozAnimationPlayState == 'paused');
+                    if(isStop){
+                        animationChain.resume();
+                    }else{
+                        animationChain.stop();
+                    }
+                    event.preventDefault();
+                    break;
+                }
+            }
+        },
+
+        onKeyDown: function(event){
+            var code = event.keyCode;
+            if(event.keyCode == 32){
+                event.preventDefault();
+            }
+        },
+    }
+
+    var qqconsole = {
+        init: function(){
+            this.element = $D.id('console');
+            this.state = 0;
+            var _this = this;
+            $E.on(document, 'keyup', function(event){
+                if(event.keyCode == 67){ //C
+                    _this.toggle();
+                }
+            });
+        },
+        show: function(){
+            this.state = 1;
+            this.element.style.right = '-15px';
+        },
+        hide: function(){
+            this.state = 0;
+            this.element.style.right = '-500px';
+        },
+        toggle: function(){
+            if(this.state == 1){
+                this.hide();
+            }else{
+                this.show();
+            }
+        },
+        log: function(info){
+            this.element.innerHTML += '<p>'+info+'</p>';
+            this.element.scrollTop = 100000;
         }
     }
+    //qqconsole.init();
     //animationChain.init();
     this.isArray = isArray;
     this.animationChain = animationChain;
+    this.console = console;
 });
 
 Jx().$package("qqlogo.period",function(J) {
@@ -333,6 +464,21 @@ Jx().$package("qqlogo.period",function(J) {
         this.start = function(aniStep){
             $D.addClass(this.el, aniStep);
         }
+
+        this.back = function(aniStep){
+            $D.removeClass(this.el, aniStep);
+        }
+    }
+
+    this.resetContainer = function(){
+        mouthBottomContainer.style.overflow = 'visible';
+        mouthTopContainer.style.overflow = 'visible';
+        rightHandTopContainer.style.overflow = "visible";
+        rightHandBottomContainer.style.overflow = "visible";
+        leftFootTopWrapper.style.overflow = "visible";
+        leftFootBottomWrapper.style.overflow = "visible";
+        rightFootTopWrapper.style.overflow = "visible";
+        rightFootBottomWrapper.style.overflow = "visible";
     }
 
     /**
@@ -477,10 +623,18 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(mouthTop, 'animation3', 500)
                          .add(mouthBottom, 'animation1')
                          .add(mouthBottom, 'animation2')
-                         .add(mouthBottom, 'animation3',500, function(){
-                            mouthBottomContainer.style.overflow = 'hidden';
-                            mouthTopContainer.style.overflow = 'hidden';
-                            PeriodInfo.changeText('Lips Begin');
+                         .add(mouthBottom, 'animation3',500, function(isBack){
+                            isBack = isBack || false;
+                            if(!isBack){
+                                mouthBottomContainer.style.overflow = 'hidden';
+                                mouthTopContainer.style.overflow = 'hidden';
+                                PeriodInfo.changeText('Lips Begin');
+                            }else{
+                                mouthBottomContainer.style.overflow = 'visible';
+                                mouthTopContainer.style.overflow = 'visible';
+                                PeriodInfo.changeText('');
+                            }
+                            
                          })
                          .add(lips, 'animation1')
                          .add(lips, 'animation2')
@@ -523,10 +677,9 @@ Jx().$package("qqlogo.period",function(J) {
                         .add(leftHandTop, 'animation1')
                         .add(leftHandBottom, 'animation1')
                         .add(mLeftHandTopContainer, 'animation1')
-                        .add(mLeftHandBottomContainer, 'animation1', 0, function(){
+                        .add(mLeftHandBottomContainer, 'animation1', 0, function(isBack){
                             leftHandTopContainer.style.overflow = "hidden";
                             leftHandBottomContainer.style.overflow = "hidden";
-
                         })
                         .add(leftHandTop,'animation2', 500)
                         .add(leftHandBottom, 'animation2', 0, function(){
@@ -535,9 +688,16 @@ Jx().$package("qqlogo.period",function(J) {
                         .add(rightHandTop, 'animation1')
                         .add(rightHandBottom, 'animation1')
                         .add(mRightHandTopContainer, 'animation1')
-                        .add(mRightHandBottomContainer, 'animation1', 100, function(){
-                            rightHandTopContainer.style.overflow = "hidden";
-                            rightHandBottomContainer.style.overflow = "hidden";
+                        .add(mRightHandBottomContainer, 'animation1', 100, function(isBack){
+                            isBack = isBack || false;
+                            if(!isBack){
+                                rightHandTopContainer.style.overflow = "hidden";
+                                rightHandBottomContainer.style.overflow = "hidden";
+                            }else{
+                                rightHandTopContainer.style.overflow = "visible";
+                                rightHandBottomContainer.style.overflow = "visible";
+                            }
+                            
                         })
                         .add(rightHandTop,'animation2', 500)
                         .add(rightHandBottom, 'animation2', 0,function(){
@@ -564,12 +724,21 @@ Jx().$package("qqlogo.period",function(J) {
                          .add(rightFootTop, 'animation2',0, function(){
                             PeriodInfo.changeText('Cut by Container')
                          })
-                         .add(rightFootBottom, 'animation2',200, function(){
-                            leftFootTopWrapper.style.overflow = "hidden";
-                            leftFootBottomWrapper.style.overflow = "hidden";
-                            rightFootTopWrapper.style.overflow = "hidden";
-                            rightFootBottomWrapper.style.overflow = "hidden";
-                            PeriodInfo.changeText('WoW, New shoes, ^_^');
+                         .add(rightFootBottom, 'animation2',200, function(isBack){
+                            isBack = isBack || false;
+                            if(!isBack){
+                                leftFootTopWrapper.style.overflow = "hidden";
+                                leftFootBottomWrapper.style.overflow = "hidden";
+                                rightFootTopWrapper.style.overflow = "hidden";
+                                rightFootBottomWrapper.style.overflow = "hidden";
+                                PeriodInfo.changeText('WoW, New shoes, ^_^');
+                            }else{
+                                leftFootTopWrapper.style.overflow = "visible";
+                                leftFootBottomWrapper.style.overflow = "visible";
+                                rightFootTopWrapper.style.overflow = "visible";
+                                rightFootBottomWrapper.style.overflow = "visible";
+                                PeriodInfo.changeText('');
+                            }
                          })
                          .add(foot, 'animation2', 500, function(){
                             PeriodInfo.changeText('Foot Done. Go Shadow Fix')
@@ -675,6 +844,12 @@ Jx().$package("qqlogo.period",function(J) {
      */
     var introduce = {
         init : function(){
+            var _this = this;
+            $E.on(document, 'keyup', function(event){
+                if(event.keyCode == 78){ //N
+                    _this.isShow() ? _this.hide() : _this.show();
+                }
+            });
             this.el = $('.introduce')[0];
         },
         show: function(){
@@ -722,6 +897,8 @@ Jx().$package("qqlogo.period",function(J) {
     
 
     this.introduce = introduce;
+    this.PeriodInfo = PeriodInfo;
+    this.Hello = Hello;
 
     this.init = init;
 

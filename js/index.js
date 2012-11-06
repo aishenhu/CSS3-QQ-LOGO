@@ -51,9 +51,9 @@
             }
             $E.on(this.controller, 'webkitAnimationEnd', handler);
             $E.on(this.controller, 'animationend', handler);
-            $E.on(document, 'keyup', this.onKeyUp);
-            $E.on(document, 'keypress', this.onKeyPress);
-            $E.on(document, 'keydown', this.onDown);
+            $E.on(document.body, 'keyup', this.onKeyUp);
+            $E.on(document.body, 'keypress', this.onKeyPress);
+            $E.on(document.body, 'keydown', this.onDown);
         },
         add : function(element, aniName, delay, callback){
             delay = delay || 0;
@@ -135,9 +135,12 @@
                 this.cur --;
             }
             ani.element.back(ani.aniName);
-            ani = this.animations[this.cur]; 
-            ani.element.back(ani.aniName);
-            this.next(this.cur);
+            //recover the container
+            ani.callback && ani.callback(true);
+            var _this = this;
+            setTimeout(function(){
+                _this.next(_this.cur);
+            }, 200);
             qqlogo.period.PeriodInfo.show('');
             J.console.warn('back one animation, current animation index: '+ this.cur);
         },
@@ -164,6 +167,9 @@
             }
         },
 
+        /**
+         * 播放过程控制
+         */
         onKeyUp: function(event){
             var code = event.keyCode;
             console.log('code:',code);
@@ -871,6 +877,9 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
+    /**
+     * Eye Blink Manager
+     */
     var Eye = {
         init: function(){
             this.eyelipLeftTop = $('.eyelipLeftTop')[0];
@@ -898,11 +907,6 @@ Jx().$package("qqlogo.period",function(J) {
             });
         }
     }
-
-    /**
-     * 开场动画
-     */
-    
 
     this.introduce = introduce;
     this.PeriodInfo = PeriodInfo;

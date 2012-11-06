@@ -76,7 +76,7 @@
          */
         start: function(){
             console.log(this.animations);
-            J.console.log('animation start: total ' + this.animations.length);
+            J.console.warn('animation start: total ' + this.animations.length);
             $A.forEach(this.animations, function(item){
                 item.element.el.style.webkitTransition = 'none';
                 item.element.el.style.mozTransition = 'none';
@@ -118,7 +118,7 @@
             ani.element.el.style.webkitAnimationPlayState = 'paused';
             ani.element.el.style.mozAnimationPlayState = 'paused';
             ani.element.el.style.animationplaystate = 'paused';
-            J.console.log('stop animation');
+            J.console.error('stop animation');
         },
 
         resume: function(){
@@ -126,7 +126,7 @@
             ani.element.el.style.webkitAnimationPlayState = 'running';
             ani.element.el.style.MozAnimationPlayState = 'running';
             ani.element.el.style.animationPlayState = 'running';
-            J.console.log('resume animation');
+            J.console.warn('resume animation');
         },
 
         back: function(msg){
@@ -139,7 +139,7 @@
             ani.element.back(ani.aniName);
             this.next(this.cur);
             qqlogo.period.PeriodInfo.show('');
-            J.console.log('back one animation, current animation index: '+ this.cur);
+            J.console.warn('back one animation, current animation index: '+ this.cur);
         },
 
         restart: function(){
@@ -153,7 +153,7 @@
             qqlogo.period.PeriodInfo.show('');
             qqlogo.period.Hello.hide();
             qqlogo.period.resetContainer();
-            J.console.log('restart');
+            J.console.error('restart');
         },
 
         onKeyPress: function(event){
@@ -169,6 +169,7 @@
             console.log('code:',code);
             switch(code){
                 case 82: { //R
+                    qqlogo.period.Eye.removeBlink();
                     animationChain.restart();
                     event.preventDefault();
                 }
@@ -203,42 +204,42 @@
         },
     }
 
-    var qqconsole = {
-        init: function(){
-            this.element = $D.id('console');
-            this.state = 0;
-            var _this = this;
-            $E.on(document, 'keyup', function(event){
-                if(event.keyCode == 67){ //C
-                    _this.toggle();
-                }
-            });
-        },
-        show: function(){
-            this.state = 1;
-            this.element.style.right = '-15px';
-        },
-        hide: function(){
-            this.state = 0;
-            this.element.style.right = '-500px';
-        },
-        toggle: function(){
-            if(this.state == 1){
-                this.hide();
-            }else{
-                this.show();
-            }
-        },
-        log: function(info){
-            this.element.innerHTML += '<p>'+info+'</p>';
-            this.element.scrollTop = 100000;
-        }
-    }
+    // var qqconsole = {
+    //     init: function(){
+    //         this.element = $D.id('console');
+    //         this.state = 0;
+    //         var _this = this;
+    //         $E.on(document, 'keyup', function(event){
+    //             if(event.keyCode == 67){ //C
+    //                 _this.toggle();
+    //             }
+    //         });
+    //     },
+    //     show: function(){
+    //         this.state = 1;
+    //         this.element.style.right = '-15px';
+    //     },
+    //     hide: function(){
+    //         this.state = 0;
+    //         this.element.style.right = '-500px';
+    //     },
+    //     toggle: function(){
+    //         if(this.state == 1){
+    //             this.hide();
+    //         }else{
+    //             this.show();
+    //         }
+    //     },
+    //     log: function(info){
+    //         this.element.innerHTML += '<p>'+info+'</p>';
+    //         this.element.scrollTop = 100000;
+    //     }
+    // }
     //qqconsole.init();
     //animationChain.init();
     this.isArray = isArray;
     this.animationChain = animationChain;
-    this.console = console;
+    //this.console = console;
 });
 
 Jx().$package("qqlogo.period",function(J) {
@@ -758,6 +759,7 @@ Jx().$package("qqlogo.period",function(J) {
                             PeriodInfo.changeText('Mission Complete!');
                             Hello.show();
                             Eye.blink();
+                            J.console.warn('animation done.');
                             setTimeout(function(){
                                 PeriodInfo.hide();
                             }, 500);
@@ -799,7 +801,13 @@ Jx().$package("qqlogo.period",function(J) {
 
     var init = function(){
     	$E.addEventListener($D.mini('body')[0], 'dblclick', onDbClick);
-        
+        $E.on(document, 'keydown', function(){
+            var JxConsole = $D.id('JxConsole');
+            if(JxConsole){
+                JxConsole.style.top = '';
+                JxConsole.style.left = '';
+            }
+        });
         PeriodInfo.init();
         Hello.init();
         introduce.init();
@@ -901,6 +909,7 @@ Jx().$package("qqlogo.period",function(J) {
     this.Hello = Hello;
 
     this.init = init;
+    this.Eye = Eye;
 
     $E.onDomReady(init);
 });

@@ -2610,36 +2610,38 @@ header.period {
 
 #qq{
 	-webkit-animation-name: startAni;
-	-webkit-animation-duration: 1.5s;
+	-webkit-animation-duration: 1s;
 	-moz-animation-name: startAni;
-	-moz-animation-duration: 1.5s;
+	-moz-animation-duration: 1s;
 }
 
 @-webkit-keyframes startAni{
 	from{
-		top: -400px;
+		left: 210px;
+		-webkit-transform: rotate(360deg) scale(.0001);
 	}
 
-	80%{
-		top:80px;
+	70%{
+		-webkit-transform: rotate(0deg) scale(1.5);
 	}
 
 	to{
-		top:0px;
+		-webkit-transform: rotate(0deg) scale(1);
 	}
 }
 
 @-moz-keyframes startAni{
 	from{
-		top: -400px;
+		left: 210px;
+		-moz-transform: rotate(360deg) scale(.0001);
 	}
 
-	80%{
-		top:100px;
+	70%{
+		-moz-transform: rotate(0deg) scale(1.5);
 	}
 
 	to{
-		top:0px;
+		-moz-transform: rotate(0deg) scale(1);
 	}
 }
 

@@ -814,12 +814,15 @@ Jx().$package("qqlogo.period",function(J) {
                 JxConsole.style.left = '';
             }
         });
+        var up = $D.mini('.up')[0];
+        $E.on(up, 'click', function(){
+            Introduce.hide();
+        })
         PeriodInfo.init();
         Hello.init();
-        introduce.init();
+        Introduce.init();
         New.init();
         Eye.init();
-    	var count = 0;
     }
 
     /**
@@ -830,15 +833,15 @@ Jx().$package("qqlogo.period",function(J) {
         init: function(){
                 this.el = $('.new')[0];
                 $E.on(this.el, 'click', function(){
-                    if(introduce.isShow()){
-                        introduce.hide();
+                    if(Introduce.isShow()){
+                        Introduce.hide();
                     }else{
-                        introduce.show();                        
+                        Introduce.show();                        
                     }
                     New.addRecord();
                 });
                 if(!this.isRecord()){
-                    setTimeout(function(){introduce.show();}, 500);
+                    setTimeout(function(){Introduce.show();}, 500);
                 }
         },
         addRecord: function(){
@@ -856,7 +859,7 @@ Jx().$package("qqlogo.period",function(J) {
      * 新版本的更新介绍
      * @type {Object}
      */
-    var introduce = {
+    var Introduce = {
         init : function(){
             var _this = this;
             $E.on(document, 'keyup', function(event){
@@ -865,6 +868,11 @@ Jx().$package("qqlogo.period",function(J) {
                 }
             });
             this.el = $('.introduce')[0];
+            this.goel = $('.go')[0];
+            //30s之后隐藏位于顶部的提示
+            setTimeout(function(){
+                _this.goel.style.top = '-110px';
+            },30000);
         },
         show: function(){
             $D.addClass(this.el, 'show');
@@ -908,7 +916,7 @@ Jx().$package("qqlogo.period",function(J) {
         }
     }
 
-    this.introduce = introduce;
+    this.Introduce = Introduce;
     this.PeriodInfo = PeriodInfo;
     this.Hello = Hello;
 

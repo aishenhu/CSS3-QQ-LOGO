@@ -2610,39 +2610,61 @@ header.period {
 
 #qq{
 	-webkit-animation-name: startAni;
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 1.5s;
 	-moz-animation-name: startAni;
-	-moz-animation-duration: 1s;
+	-moz-animation-duration: 1.5s;
 }
 
 @-webkit-keyframes startAni{
 	from{
-		left: 210px;
-		-webkit-transform: rotate(360deg) scale(.0001);
+		top: -400px;
 	}
 
-	70%{
-		-webkit-transform: rotate(0deg) scale(1.5);
+	80%{
+		top:80px;
 	}
 
 	to{
-		-webkit-transform: rotate(0deg) scale(1);
+		top:0px;
 	}
 }
 
 @-moz-keyframes startAni{
 	from{
-		left: 210px;
-		-moz-transform: rotate(360deg) scale(.0001);
+		top: -400px;
 	}
 
-	70%{
-		-moz-transform: rotate(0deg) scale(1.5);
+	80%{
+		top:100px;
 	}
 
 	to{
-		-moz-transform: rotate(0deg) scale(1);
+		top:0px;
 	}
 }
 
+.up{
+	position: absolute;
+	font-style: normal;
+	right: 30px;
+	color: #78DD49;
+	cursor: pointer;
+}
 
+.go {
+	position: absolute;
+	top: 4px;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: rgb(21, 98, 236);
+	height: 30px;
+	line-height: 30px;
+	margin: 0;
+	font-family:'微软雅黑',sans-serif;
+	-webkit-transition: top 1s linear;
+	-moz-transition: top 1s linear;
+	-o-transition: top 1s linear;
+	-ms-transition: top 1s linear;
+	transition:top 1s linear;
+}
